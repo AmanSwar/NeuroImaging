@@ -14,7 +14,6 @@ from src.evaluation import (
     print_classification_report,
 )
 from src.models.cafn import CAFN
-from src.train import multi_task_loss_from_outputs
 
 
 class DictBatchDataset(TensorDataset):
@@ -183,42 +182,3 @@ class TestReportAndFigures:
     def test_plot_training_curves_requires_history(self, tmp_path):
         with pytest.raises(ValueError):
             plot_training_curves({"train_loss": []}, str(tmp_path / "y.png"))
-
-
-class TestMultiTaskLossFromOutputs:
-    def test_matches_cafn_multi_task_loss(self, tiny_config):
-        torch.manual_seed(0)
-        model = CAFN(tiny_config.model)
-        model.eval()  # disable dropout so both forwards agree exactly
-        mri = torch.randn(2, 1, *tiny_config.mri.target_shape)
-        vep = torch.randn(2, 1, tiny_config.vep.length)
-        labels = torch.tensor([0, 2])
-        outputs = model(mri, vep)
-        _, parts_ref = model.multi_task_loss(outputs, labels, aux_weight=0.3)
-        total, parts = multi_task_loss_from_outputs(outputs, labels, aux_weight=0.3)
-        assert parts.keys() == parts_ref.keys()
-        for key in parts_ref:
-            assert parts[key] == pytest.approx(parts_ref[key], rel=1e-5)
-
-    def test_label_smoothing_reduces_confidence(self, tiny_config):
-        torch.manual_seed(0)
-        model = CAFN(tiny_config.model)
-        mri = torch.randn(1, 1, *tiny_config.mri.target_shape)
-        vep = torch.randn(1, 1, tiny_config.vep.length)
-        labels = torch.tensor([1])
-        outputs = model(mri, vep)
-        total_plain, _ = multi_task_loss_from_outputs(outputs, labels)
-        total_smooth, _ = multi_task_loss_from_outputs(outputs, labels, label_smoothing=0.1)
-        assert total_smooth.item() != total_plain.item()
-
-    def test_class_weights_change_loss(self, tiny_config):
-        torch.manual_seed(0)
-        model = CAFN(tiny_config.model)
-        mri = torch.randn(2, 1, *tiny_config.mri.target_shape)
-        vep = torch.randn(2, 1, tiny_config.vep.length)
-        labels = torch.tensor([0, 1])
-        outputs = model(mri, vep)
-        total_plain, _ = multi_task_loss_from_outputs(outputs, labels)
-        weights = torch.tensor([3.0, 0.5, 1.0])
-        total_w, _ = multi_task_loss_from_outputs(outputs, labels, class_weights=weights)
-        assert total_w.item() != total_plain.item()

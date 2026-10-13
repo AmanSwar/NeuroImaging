@@ -734,6 +734,86 @@ def _verify_device_supports_model(device: torch.device, cfg: Config) -> torch.de
         return torch.device("cpu")
 
 
+def _carve_splits(dataset, args, cfg: Config) -> dict:
+    """Train/val(/test) splits honouring the CLI's stratify/group flags.
+
+    ``--test-split`` carves the held-out test set first; the remaining
+    flags then partition train/val exactly as before, so every pre-existing
+    invocation keeps its split behaviour.
+    """
+    test_split = float(getattr(args, "test_split", 0.0) or 0.0)
+    if test_split <= 0:
+        train_ds, val_ds = train_val_split(
+            dataset, cfg.train.val_split, cfg.train.seed,
+            stratify=not args.no_stratify,
+            group_by="subject_id" if args.group_by_subject else None,
+        )
+        return {"train": train_ds, "val": val_ds, "test": None}
+
+    from src.data.splits import stratified_train_val_test_split
+
+    if args.no_stratify:  # legacy-style uniform random 3-way carve
+        n = len(dataset)
+        n_test = max(1, int(n * test_split)) if n > 1 else 0
+        g = torch.Generator().manual_seed(cfg.train.seed)
+        perm = torch.randperm(n, generator=g).tolist()
+        test_idx, rest = perm[:n_test], perm[n_test:]
+        rest = Subset(dataset, rest)
+        train_ds, val_ds = train_val_split(
+            rest, cfg.train.val_split, cfg.train.seed,
+            stratify=False, group_by=None,
+        )
+        return {"train": train_ds, "val": val_ds, "test": Subset(dataset, test_idx)}
+
+    train_ds, val_ds, test_ds = stratified_train_val_test_split(
+        dataset, cfg.train.val_split, test_split, cfg.train.seed
+    )
+    return {"train": train_ds, "val": val_ds, "test": test_ds}
+
+
+def _eval_loader(subset, cfg: Config, device: torch.device) -> DataLoader | None:
+    if subset is None or len(subset) == 0:
+        return None
+    return DataLoader(subset, batch_size=cfg.train.batch_size, shuffle=False,
+                      **_make_loader_kwargs(cfg.train, device))
+
+
+def _final_detailed_report(model, splits: dict, cfg: Config, device: torch.device,
+                           out_dir: str) -> None:
+    """Confusion-matrix PNGs + console classification reports for val/test.
+
+    Best-effort by design: reporting must never kill a finished run.
+    """
+    try:
+        from src.evaluation import (
+            evaluate_detailed,
+            plot_confusion_matrix,
+            print_classification_report,
+        )
+
+        os.makedirs(out_dir, exist_ok=True)
+        for name in ("val", "test"):
+            loader = _eval_loader(splits.get(name), cfg, device)
+            if loader is None:
+                continue
+            metrics = evaluate_detailed(model, loader, device)
+            print(f"\n== {name} (detailed) ==")
+            print(print_classification_report(metrics))
+            png = os.path.join(out_dir, f"final_{name}_confusion_matrix.png")
+            plot_confusion_matrix(metrics["confusion_matrix"], png)
+            save_metrics(metrics, os.path.join(out_dir, f"final_{name}_metrics.json"))
+    except Exception as exc:  # noqa: BLE001 - reporting is non-critical
+        print(f"detailed reporting skipped: {exc}")
+
+
+def _run_eval_only(args, cfg: Config, splits: dict, device: torch.device) -> None:
+    """--eval-only: load a checkpoint and report detailed metrics."""
+    model = load_checkpoint(args.eval_only, cfg)
+    out_dir = os.path.join(cfg.train.checkpoint_dir, getattr(args, "run_name", "run") or "run")
+    print(f"loaded checkpoint {args.eval_only}")
+    _final_detailed_report(model, splits, cfg, device, out_dir=out_dir)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Train CAFN on synthetic or manifest data")
     parser.add_argument("--manifest", type=str, default=None,
@@ -764,6 +844,12 @@ def main(argv=None):
                         default=DEFAULT_CONFIG.train.checkpoint_dir,
                         help="where per-run artifact directories are created")
     parser.add_argument("--resume", type=str, default=None)
+    parser.add_argument("--test-split", type=float, default=0.0,
+                        help="hold out an additional stratified test split "
+                             "(reported with the detailed metrics + confusion matrix)")
+    parser.add_argument("--eval-only", type=str, default=None, metavar="CKPT",
+                        help="skip training; evaluate an existing checkpoint on the "
+                             "val (and test, when --test-split > 0) split")
     parser.add_argument("--seed", type=int, default=DEFAULT_CONFIG.train.seed)
     parser.add_argument("--deterministic", action="store_true")
     args = parser.parse_args(argv)
@@ -784,14 +870,18 @@ def main(argv=None):
 
         dataset = SyntheticNeuroDataset(num_samples=args.synthetic_samples, cfg=cfg, seed=args.seed)
 
-    train_ds, val_ds = train_val_split(
-        dataset, cfg.train.val_split, cfg.train.seed,
-        stratify=not args.no_stratify,
-        group_by="subject_id" if args.group_by_subject else None,
+    splits = _carve_splits(dataset, args, cfg)
+    train_ds, val_ds = splits["train"], splits["val"]
+    print(
+        f"split: {len(train_ds)} train / {len(val_ds)} val"
+        + (f" / {len(splits['test'])} test" if splits.get("test") else "")
     )
-    print(f"split: {len(train_ds)} train / {len(val_ds)} val")
 
     from src.models.cafn import CAFN
+
+    if args.eval_only:
+        _run_eval_only(args=args, cfg=cfg, splits=splits, device=device)
+        return
 
     model = CAFN(cfg.model)
     print(f"CAFN parameters: {sum(p.numel() for p in model.parameters()):,}")
@@ -803,6 +893,9 @@ def main(argv=None):
     print(f"epochs run: {history['epochs_run']}  restored_best: {history['restored_best']}")
     if history["val_loss"]:
         print(f"final val loss: {history['val_loss'][-1]:.4f}")
+
+    _final_detailed_report(model, splits, cfg, device,
+                           out_dir=os.path.join(cfg.train.checkpoint_dir, args.run_name))
     print(f"artifacts: {os.path.join(cfg.train.checkpoint_dir, args.run_name)}")
 
 

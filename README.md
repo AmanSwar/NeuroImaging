@@ -86,4 +86,5 @@ src/
 tests/unit/  tests/integration/
 ```
 
-See `Project.md` §v2 for the rationale behind each change.
+See `Project.md` ("v2/v3 engineering notes") for the rationale behind each
+change.

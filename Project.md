@@ -259,3 +259,72 @@ python -m src.predict --checkpoint checkpoints/cohort1/best.pt \
   `adaptive_avg_pool3d` on Apple Silicon's MPS backend, so training
   auto-falls back to CPU with a printed warning when the spatial encoder's
   pool is hit; behaviour and results are identical.
+
+---
+
+## v2/v3 engineering notes (fusion, losses, explainability)
+
+Companion details to the sections above; quickstart lives in `README.md`.
+
+**Model / fusion**
+
+- `AttentionPool1D` (`src/models/attention_pool.py`): the scorer is an
+  `nn.Linear(d_model, 1)` with near-zero init, so the pooled head begins
+  exactly at mean-pooling and learns to sharpen; zeroing the scorer
+  recovers mean pooling bit-for-bit. It also emits per-token salience
+  weights (`pool_weights`) usable as a training-free token importance map.
+- `PositionalEmbedding` (`src/models/positional.py`) is a plain learned
+  table `(num_tokens, d_model)`; the spatial wrapper validates that the
+  pooling grid product equals `spatial_tokens` so the two can never
+  silently disagree.
+- The gates on the bidirectional fusion live on the fusion module itself
+  (`fusion.gate_spatial` / `fusion.gate_temporal`), zero-initialized:
+  `sigmoid(0) = 0.5` means both cross-modal directions start exactly
+  half-open.
+- Fusion depth is honored by both fusion modes (`ModelConfig.fusion_blocks`);
+  the fusion layer returns the last block's attention maps, and in the
+  bidirectional mode the temporal stream updates *before* the spatial read,
+  so the fused representation has consumed the enriched latencies within a
+  single block (this also guarantees gradients reach every fusion
+  parameter through a single-layer stack).
+
+**Losses** (`src/models/losses.py`)
+
+- `multi_task_ce` is the canonical fused + auxiliary CE, supporting label
+  smoothing and optional class weights threaded into every head.
+- `UncertaintyWeightedLoss` implements learnable homoscedastic task
+  weighting (Kendall et al., 2018): each task scales by
+  `exp(-log_sigma)` with an additive `+log_sigma` regularizer that provably
+  prevents the degenerate "inflate every sigma" solution. At init
+  (`log_sigma = 0`) it reduces exactly to the plain sum of the three CEs.
+  Wire it by constructing `UncertaintyWeightedLoss()` and calling it
+  instead of `model.multi_task_loss` in custom loops.
+
+**Explainability** (`src/explainability/`)
+
+- `GradCAM3D(method="gradcam++")`: second-order pixel re-weighting
+  (Selvaraju et al., 2017) for classes that activate multiple regions --
+  exactly the lesion-plus-atrophy picture here. Differentiation targets the
+  captured (non-leaf) activation tensor directly, so no leaf-grad juggling;
+  `generate_with_fallback()` degrades gracefully to vanilla Grad-CAM on
+  backends without double-backward support.
+- `plot_cross_attention` accepts either the raw `(B, H, S, T)` tensor or
+  CAFN's direction-keyed mapping, and `plot_attention_by_head` renders one
+  heatmap per head -- heads specialize, and cross-head pooling hides it.
+- `p100.py` turns the VEP stream into a clinician-checkable number: P100
+  latency/amplitude with an ISCEV-aligned search window, plus
+  `estimate_p100_after_cleaning`, which corrects the effective sample rate
+  whenever the cleaning pipeline resampled the sweep (a naive estimate
+  otherwise reports 2x latencies for 500 Hz sources).
+
+**Checkpoint contract**
+
+- `save_checkpoint` now prefers the model's own `cfg` (`getattr(model,
+  "cfg", cfg.model)`) when serializing: saving a model built from a custom
+  config with a default cfg silently produced checkpoints that reloaded
+  into mismatched architectures (the predict-CLI regression). Legacy
+  checkpoints still load via `merge_model_config`, which maps renamed
+  fields forward (`bidirectional -> fusion`,
+  `use_positional_encoding -> pos_encoding`, `num_fusion_layers ->
+  fusion_blocks`) and drops unknown keys.
+

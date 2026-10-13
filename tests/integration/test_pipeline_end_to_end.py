@@ -82,7 +82,7 @@ class TestExplainabilityOnRealPipelineOutput:
 
 
 class TestPredictCLISmoke:
-    def test_main_entrypoint_exists_and_runs(self, tmp_path):
+    def test_main_entrypoint_exists_and_runs(self, tmp_path, tiny_config):
         """Regression: the v2 refactor dropped `main()`/`__main__` from
         src/predict.py, so `python -m src.predict` silently did nothing
         (exit 0, no artifacts). This pins the CLI shell in place."""

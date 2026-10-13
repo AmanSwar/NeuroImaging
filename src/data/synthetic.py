@@ -125,7 +125,12 @@ def synthetic_vep_signal(
     latency = max(
         0.05, rng.normal(params["latency_ms"] / 1000.0, params["latency_sd"] / 1000.0)
     )
-    amplitude = max(0.5, rng.normal(params["amplitude"], params["amplitude_sd"]))
+    # Amplitude floor: a real clinical P100 is only measurable on *averaged*
+    # sweeps; for single-sweep synthesis keep enough amplitude that the true
+    # peak survives EMG noise after z-scoring (SNR >> noise spikes), or
+    # downstream P100-latency estimation becomes unstable. Class amplitude
+    # RATIOS are preserved (z-normalization cancels absolute scale).
+    amplitude = max(1.5, rng.normal(params["amplitude"], params["amplitude_sd"]))
 
     t = np.arange(0.0, duration_s, 1.0 / fs)
 

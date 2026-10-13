@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from src.data.synthetic import synthetic_vep_signal
+from src.data.synthetic import VEP_CLASS_PARAMS, synthetic_vep_signal
 from src.explainability.p100 import (
     P100_WINDOW_S,
     estimate_p100,
@@ -14,24 +14,39 @@ from src.preprocessing.signal_cleaner import clean_vep_signal
 
 
 class TestSyntheticGroundTruth:
-    """The synthetic generator places P100 at known latencies per class."""
+    """Synthetic sweeps draw latency ~ N(class mean, sd) per sample; average
+    several sweeps per class so the jitter variance does not dominate."""
 
-    GROUND_TRUTH_LATENCY_MS = {0: 100.0, 1: 108.0, 2: 140.0}
+    FS = 250.0
+    N_SWEEPS = 5
 
     @pytest.mark.parametrize("label", [0, 1, 2])
-    def test_recovers_class_latency_within_half_period(self, label, rng):
-        fs = 250.0
-        raw = synthetic_vep_signal(label, fs=fs, rng=rng)
-        cleaned = clean_vep_signal(raw, fs)
-        meas = estimate_p100(cleaned, fs)
-        expected = self.GROUND_TRUTH_LATENCY_MS[label]
-        assert abs(meas.latency_ms - expected) <= 1000.0 / (2 * fs) + 4.0  # <= 6 ms
+    def test_recovers_class_latency_within_tolerance(self, label, rng):
+        params = VEP_CLASS_PARAMS[label]
+        tolerances_ms = 4.0 * params["latency_sd"] + 1000.0 / self.FS + 2.0
+        latencies = []
+        for _ in range(self.N_SWEEPS):
+            raw = synthetic_vep_signal(label, fs=self.FS, rng=rng)
+            cleaned = clean_vep_signal(raw, self.FS)
+            latencies.append(estimate_p100(cleaned, self.FS).latency_ms)
+        mean_latency = float(np.mean(latencies))
+        assert abs(mean_latency - params["latency_ms"]) <= tolerances_ms
 
     def test_neuritis_latency_exceeds_healthy(self, rng):
-        fs = 250.0
-        healthy = estimate_p100(clean_vep_signal(synthetic_vep_signal(0, fs=fs, rng=rng), fs), fs)
-        neuritis = estimate_p100(clean_vep_signal(synthetic_vep_signal(2, fs=fs, rng=rng), fs), fs)
-        assert neuritis.latency_ms - healthy.latency_ms > 20  # clinical separation
+        def mean_latency(label):
+            values = []
+            for _ in range(self.N_SWEEPS):
+                cleaned = clean_vep_signal(
+                    synthetic_vep_signal(label, fs=self.FS, rng=rng), self.FS
+                )
+                values.append(estimate_p100(cleaned, self.FS).latency_ms)
+            return float(np.mean(values))
+
+        healthy = mean_latency(0)
+        neuritis = mean_latency(2)
+        assert neuritis - healthy > 0.6 * (
+            VEP_CLASS_PARAMS[2]["latency_ms"] - VEP_CLASS_PARAMS[0]["latency_ms"]
+        )
 
 
 class TestEstimateP100:
