@@ -690,6 +690,11 @@ def build_config(args) -> Config:
     patience = DEFAULT_CONFIG.train.patience
     if args.patience is not None and args.patience >= 0:
         patience = args.patience
+    model = _replace_fields(
+        DEFAULT_CONFIG.model,
+        fusion=args.fusion,
+        pos_encoding=args.pos_encoding,
+    )
     train = _replace_fields(
         DEFAULT_CONFIG.train,
         batch_size=args.batch_size,
@@ -698,15 +703,18 @@ def build_config(args) -> Config:
         weight_decay=args.weight_decay,
         aux_loss_weight=args.aux_loss_weight,
         seed=args.seed,
+        optimizer=args.optimizer,
         scheduler=args.scheduler,
+        warmup_epochs=getattr(args, "warmup_epochs", None),
         patience=patience,
         amp=args.amp,
         num_workers=args.num_workers,
         max_grad_norm=args.max_grad_norm,
         checkpoint_dir=args.checkpoint_dir,
-        class_weights="auto" if args.balance_classes else None,
+        balance_classes=args.balance_classes
+        or getattr(args, "class_weights", None) == "auto",
     )
-    return _replace_fields(DEFAULT_CONFIG, train=train)
+    return _replace_fields(DEFAULT_CONFIG, model=model, train=train)
 
 
 def _verify_device_supports_model(device: torch.device, cfg: Config) -> torch.device:
@@ -825,6 +833,17 @@ def main(argv=None):
     parser.add_argument("--weight-decay", type=float, default=DEFAULT_CONFIG.train.weight_decay)
     parser.add_argument("--aux-loss-weight", type=float, default=DEFAULT_CONFIG.train.aux_loss_weight)
     parser.add_argument("--scheduler", choices=("cosine", "none"), default="cosine")
+    parser.add_argument("--warmup-epochs", type=float,
+                        default=DEFAULT_CONFIG.train.warmup_epochs,
+                        help="linear LR warmup before cosine decay (scheduler=cosine)")
+    parser.add_argument("--optimizer", choices=("adamw", "adam", "sgd"),
+                        default=DEFAULT_CONFIG.train.optimizer,
+                        help="AdamW default (decoupled weight decay)")
+    parser.add_argument("--fusion", choices=("bidirectional", "cross"),
+                        default=DEFAULT_CONFIG.model.fusion,
+                        help="'cross' recovers the v1 one-way spatial->temporal fusion")
+    parser.add_argument("--no-pos-encoding", dest="pos_encoding", action="store_false",
+                        help="disable positional embeddings (v1 bag-of-features attention)")
     parser.add_argument("--patience", type=int, default=None,
                         help="early-stopping patience epochs; omit = config default (off)")
     parser.add_argument("--max-grad-norm", type=float, default=DEFAULT_CONFIG.train.max_grad_norm)
@@ -832,6 +851,8 @@ def main(argv=None):
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--num-workers", type=int, default=0)
     parser.add_argument("--balance-classes", action="store_true")
+    parser.add_argument("--class-weights", choices=("auto",), default=None,
+                        help="inverse-frequency CE weights (alias of --balance-classes)")
     parser.add_argument("--no-stratify", action="store_true")
     parser.add_argument("--group-by-subject", action="store_true",
                         help="split train/val by subject_id (prevents within-subject "

@@ -81,11 +81,16 @@ class TrainConfig:
     optimizer: str = "adamw"              # reserved for optimizer selection
     scheduler: str = "cosine"             # linear-warmup -> cosine decay | "none"
     warmup_fraction: float = 0.1          # fraction of total steps: linear LR warmup
+    # explicit warmup length in epochs; when set it overrides warmup_fraction
+    warmup_epochs: float | None = None
     max_grad_norm: float = 1.0            # 0 disables gradient clipping
     patience: int | None = None           # early-stopping patience; None disables
     num_workers: int = 0
     amp: bool = False                     # mixed precision (CUDA only)
     balance_classes: bool = False         # inverse-frequency CE weights for imbalanced data
+    # explicit class-weight policy ("auto" = inverse frequency); alternative
+    # to the `balance_classes` boolean
+    class_weights: str | None = None
     label_smoothing: float = 0.0          # CE label smoothing on all heads
     deterministic: bool = False           # seed_everything(deterministic=True)
     augment: bool = True                  # train-time augmentation (val always clean)
