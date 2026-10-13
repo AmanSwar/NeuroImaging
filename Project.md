@@ -217,9 +217,26 @@ $$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right
 python -m src.train --synthetic-samples 64 --epochs 20                     # synthetic end-to-end
 python -m src.train --manifest data/raw/manifest.csv --group-by-subject \
     --augment --balance-classes --run-name cohort1                         # real cohort (when labeled)
+python -m src.train --test-split 0.15 --run-name cohort1                   # + stratified hold-out test set
 python -m src.predict --checkpoint checkpoints/cohort1/best.pt \
     --mri subject.nii.gz --vep subject_vep.csv --outdir out/               # inference + evidence
 ```
+
+**Evaluation-v2 layer (CLI + module):**
+
+- `src/evaluation.py` computes balanced accuracy, macro/weighted F1,
+  per-class precision/recall, ROC-AUC (one-vs-rest) and renders labelled
+  confusion-matrix PNGs; every training run finishing with a val/test
+  split writes `final_<split>_confusion_matrix.png` +
+  `final_<split>_metrics.json` alongside the standard artifacts, and
+  `--eval-only checkpoints/<run>/best.pt` replays the same report on a
+  fresh process without training.
+- `src/data/splits.py` is the reusable splitter behind the CLI:
+  label-stratified with largest-remainder quotas (minority classes are
+  never rounded out of validation), subject-group aware, and
+  `Subset`-transparent; it powers `--test-split` under all stratify/
+  group flags. `python -m src.train --eval-only ...` reports the exact
+  figures quoted in reports — no manual metric juggling.
 
 **Design deviations from the original blueprint, and why:**
 
@@ -248,13 +265,15 @@ python -m src.predict --checkpoint checkpoints/cohort1/best.pt \
   `src/predict.py` (inference CLI). Training artifacts (per-run `best.pt`,
   `last.pt`, `history.json`, `final_metrics.json`, `training_curves.png`)
   land under `checkpoints/<run_name>/`.
-- **Test suite**: 197 tests (`pytest.ini`, `tests/unit/`,
+- **Test suite**: 300 tests (`pytest.ini`, `tests/unit/`,
   `tests/integration/`) cover every module in isolation plus full-system
   integration tests -- raw synthetic files through preprocessing, model,
   loss, backward, and optimizer step; a multi-epoch training run asserting
   the loss actually drops and the model separates classes; checkpoint
-  round-trips, resume, early stopping, and train-artifact generation. Run
-  with `pytest` (or `pytest --cov=src` for coverage).
+  round-trips, resume, early stopping, and train-artifact generation; CLI
+  end-to-end runs (`--test-split`, `--eval-only`, manifest mode) in temp
+  dirs. Run with `pytest` (or `pytest --cov=src` for coverage; currently
+  ~92%).
 - **MPS note**: recent torch builds do not implement
   `adaptive_avg_pool3d` on Apple Silicon's MPS backend, so training
   auto-falls back to CPU with a printed warning when the spatial encoder's
