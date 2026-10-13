@@ -24,6 +24,41 @@ The proposed solution implements an end-to-end **Cross-Attention Fusion Network 
 
 $$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V$$
 
+**v2/v3 architecture & methodology upgrades (all active by default):**
+
+- **Bidirectional gated co-attention:** temporal tokens also query spatial
+  context (latency bins ask *which cortical zone* drives them), and each
+  direction is scaled by a learnable sigmoid gate; `"cross"` mode recovers
+  the original one-way fusion.
+- **Positional information:** learned 3D positional embeddings on the pooled
+  spatial grid and fixed sinusoidal encodings on the temporal axis -- without
+  them the cross-attention heatmap is a bag-of-features correlation, not a
+  region-to-latency map.
+- **Backbone upgrades:** Squeeze-and-Excitation channel attention in the 3D
+  residual blocks; a multi-scale 1D temporal encoder (parallel 3/9/19-sample
+  kernels per stage) so both the ~30 ms P100 peak and the ~80 ms N75-P100-N145
+  complex are visible to the encoder.
+- **Learned attention pooling** for the fused classification embedding
+  (initialized near-uniform, i.e. it starts at v1 mean-pool behavior), plus
+  per-head token salience for inspection.
+- **Otsu foreground masking** (histogram-optimal, with morphological hole
+  filling / largest-component cleanup) instead of the destructive v1
+  intensity-percentile "skull strip"; optional foreground z-score
+  normalization for real MRI intensity ranges.
+- **Multi-task loss with options:** fixed-weight fused+auxiliary CE
+  (label smoothing, inverse-frequency class weights for imbalanced cohorts)
+  or Kendall-style learnable homoscedastic task weighting
+  (`src/models/losses.UncertaintyWeightedLoss`).
+- **Train-time augmentation that respects the biomarkers:** MRI flips and
+  intensity jitter; VEP amplitude/noise jitter only -- the waveform is never
+  shifted in time because P100 latency carries the class signal.
+- **Leakage-safe evaluation splits:** class-stratified row splits by
+  default, plus `--group-by-subject` whole-subject splitting for
+  longitudinal cohorts (several scans per subject) so validation accuracy
+  measures generalization, not subject memorization.
+- **Deterministic data:** synthetic samples are keyed by `(seed, index)`, so
+  the same index yields identical content across epochs, workers, and runs.
+
 - **Multi-Task Auxiliary Supervision:** Unimodal baseline heads train concurrently with the fused attention head, preventing the network from over-relying on a single dominant modality.
 - **Clinical Interpretability Engine:** Generates 2D spatial-temporal cross-attention matrices and 3D visual cortex activation maps, giving clinicians verifiable evidence for classification decisions.
 
@@ -141,42 +176,64 @@ $$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right
 ├── data/
 │   ├── raw/
 │   │   ├── mri/                     # Raw 3D NIfTI volumes (.nii.gz)
-│   │   └── vep/                     # Raw 1D electrophysiological CSVs (.csv)
-│   └── processed/                   # Resampled, skull-stripped, and filtered arrays
+│   │   └── vep/                     # Raw 1D electrophysiological CSVs (.csv/.npy)
+│   └── processed/                   # Resampled, masked, and normalized arrays
 ├── src/
 │   ├── config.py                    # Central shape/hyperparameter config (single source of truth)
+│   ├── utils.py                     # Seeding, device resolution, stratified & subject-group splits
+│   ├── train.py                     # Multi-task training loop (CLI + library entry points)
+│   ├── predict.py                   # Single-pair inference CLI (prediction + evidence artifacts)
 │   ├── preprocessing/
-│   │   ├── signal_cleaner.py        # Butterworth & notch filtering
-│   │   └── mri_transforms.py        # MONAI spatial standardizer
+│   │   ├── signal_cleaner.py        # Butterworth & notch filtering + baseline correction
+│   │   └── mri_transforms.py        # MONAI spatial standardizer (Otsu/percentile masks)
 │   ├── data/
 │   │   ├── synthetic.py             # Class-conditioned synthetic MRI/VEP generator (see Sec. 4 note)
-│   │   └── dataset.py                # PairedNeuroDataset (real manifest) & SyntheticNeuroDataset
+│   │   ├── augment.py               # Biomarker-preserving train-time augmentation
+│   │   └── dataset.py               # PairedNeuroDataset (validated manifest) & SyntheticNeuroDataset
 │   ├── models/
-│   │   ├── spatial_encoder.py       # 3D-CNN / ResNet backbone
-│   │   ├── temporal_encoder.py      # 1D-CNN latency backbone
-│   │   ├── cross_attention.py       # Multi-Head CAFM layer
+│   │   ├── spatial_encoder.py       # 3D ResNet + Squeeze-Excitation backbone
+│   │   ├── temporal_encoder.py      # Multi-scale 1D residual latency backbone
+│   │   ├── positional.py            # 3D learned / 1D sinusoidal positional encodings
+│   │   ├── attention_pool.py        # Learned attention pooling head
+│   │   ├── cross_attention.py       # Multi-Head CAFM (pre-norm, stacked, gated bidirectional)
+│   │   ├── losses.py                # Multi-task CE (smoothing/class weights) + uncertainty weighting
 │   │   └── cafn.py                  # Full CAFN: encoders + fusion + fused/aux heads
-│   ├── train.py                     # Multi-task training loop (CLI + library entry points)
 │   └── explainability/
 │       ├── grad_cam_3d.py           # 3D spatial activation maps (Grad-CAM on fused logit)
-│       └── plot_attention.py        # 2D cross-attention correlation heatmaps
+│       └── plot_attention.py        # 2D cross-attention correlation heatmaps (both directions)
 ├── tests/
 │   ├── unit/                        # Per-module tests (preprocessing, models, data, explainability)
 │   └── integration/                 # Full raw-file-to-trained-step pipeline & training-loop tests
-├── checkpoints/                     # Serialized PyTorch models (.pt)
+├── checkpoints/                     # Serialized PyTorch models (.pt); per-run artifact dirs
 ├── pytest.ini                       # pythonpath + test discovery config
-└── requirements.txt                 # torch, monai, nibabel, nilearn, mne, scipy,
-                                      # matplotlib, scikit-learn, pytest, pytest-cov
+├── requirements.txt                 # torch, monai, nibabel, nilearn, mne, scipy,
+│                                    # matplotlib, scikit-learn, pytest, pytest-cov
+└── Project.md                       # This blueprint
+```
+
+**Typical runs:**
+
+```
+python -m src.train --synthetic-samples 64 --epochs 20                     # synthetic end-to-end
+python -m src.train --manifest data/raw/manifest.csv --group-by-subject \
+    --augment --balance-classes --run-name cohort1                         # real cohort (when labeled)
+python -m src.predict --checkpoint checkpoints/cohort1/best.pt \
+    --mri subject.nii.gz --vep subject_vep.csv --outdir out/               # inference + evidence
 ```
 
 **Design deviations from the original blueprint, and why:**
 
-- **Skull-stripping** is implemented as a lightweight intensity-percentile
-  foreground mask (`mri_transforms.foreground_mask_threshold`) rather than
-  an external tool (FSL BET / HD-BET / SynthStrip), since those require a
-  separate binary or pretrained network not installable via pip. It is a
-  drop-in placeholder -- swap in HD-BET/SynthStrip for clinical-grade
-  deployment; nothing downstream depends on which method produced the mask.
+- **Skull-stripping** is implemented as a self-contained foreground mask
+  rather than an external tool (FSL BET / HD-BET / SynthStrip), since those
+  require a separate binary or pretrained network not installable via pip.
+  Default is an **Otsu threshold with morphological cleanup**
+  (`mri_transforms.foreground_mask_otsu`: hole filling + largest connected
+  component), which preserves far more genuine tissue than the legacy
+  intensity-percentile mask (`foreground_mask_threshold`, kept behind
+  ``MRIConfig.mask_method="percentile"`` for reproducing v1 experiments).
+  Both are drop-in placeholders -- swap in HD-BET/SynthStrip for
+  clinical-grade deployment; nothing downstream depends on which method
+  produced the mask.
 - **`src/config.py`** was added (not in the original tree) as the single
   source of truth for tensor shapes and hyperparameters (`d_model=128`,
   `num_heads=4`, 64 spatial / 16 temporal tokens, etc.), so the
@@ -185,10 +242,20 @@ $$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right
 - **`src/data/`** was added (not in the original tree) to hold the dataset
   loaders and the synthetic-data generator required to close the labeling
   gap noted in Section 4.
-- **Test suite**: 86 tests (`pytest.ini`, `tests/unit/`, `tests/integration/`)
-  cover every module in isolation plus two full-system integration tests --
-  raw synthetic files through preprocessing, model, loss, backward, and
-  optimizer step; and a multi-epoch training run asserting the loss
-  actually drops and the model learns to separate classes (not just "runs
-  without crashing"). Run with `pytest` (or `pytest --cov=src` for coverage;
-  currently 95%).
+- **v2/v3 additions** beyond the original scope: `src/models/positional.py`,
+  `src/models/attention_pool.py`, `src/models/losses.py`,
+  `src/data/augment.py`, `src/utils.py` (splits/seeding/device), and
+  `src/predict.py` (inference CLI). Training artifacts (per-run `best.pt`,
+  `last.pt`, `history.json`, `final_metrics.json`, `training_curves.png`)
+  land under `checkpoints/<run_name>/`.
+- **Test suite**: 197 tests (`pytest.ini`, `tests/unit/`,
+  `tests/integration/`) cover every module in isolation plus full-system
+  integration tests -- raw synthetic files through preprocessing, model,
+  loss, backward, and optimizer step; a multi-epoch training run asserting
+  the loss actually drops and the model separates classes; checkpoint
+  round-trips, resume, early stopping, and train-artifact generation. Run
+  with `pytest` (or `pytest --cov=src` for coverage).
+- **MPS note**: recent torch builds do not implement
+  `adaptive_avg_pool3d` on Apple Silicon's MPS backend, so training
+  auto-falls back to CPU with a printed warning when the spatial encoder's
+  pool is hit; behaviour and results are identical.

@@ -80,6 +80,21 @@ def zscore_normalize(signal: np.ndarray, eps: float = 1e-8) -> np.ndarray:
     return (signal - signal.mean()) / (std + eps)
 
 
+def baseline_correct(signal: np.ndarray, fs: float, window_ms: float) -> np.ndarray:
+    """Subtract the mean of the first `window_ms` of the sweep.
+
+    Standard electrophysiology practice: the pre-stimulus interval carries no
+    evoked response, so its mean estimates the DC offset of that recording,
+    which is removed sweep-by-sweep (rather than globally) so trial-to-trial
+    drift does not contaminate latency measurements.
+    """
+    signal = _validate_signal(signal)
+    if window_ms <= 0:
+        raise ValueError(f"baseline window must be > 0 ms, got {window_ms}")
+    n_baseline = min(signal.size, max(1, int(round(fs * window_ms / 1000.0))))
+    return signal - signal[:n_baseline].mean()
+
+
 def resample_to_length(signal: np.ndarray, target_length: int) -> np.ndarray:
     """Linear-interpolation resample to a fixed number of samples."""
     signal = _validate_signal(signal)
@@ -95,11 +110,19 @@ def clean_vep_signal(
     fs: float,
     cfg: VEPConfig = DEFAULT_CONFIG.vep,
 ) -> np.ndarray:
-    """Full 1D conditioning pipeline: bandpass -> notch -> resample -> z-score.
+    """Full 1D conditioning pipeline:
+    baseline correction (optional) -> bandpass -> notch -> resample -> z-score.
+
+    Baseline correction runs first, on the raw sweep, because that is where
+    the pre-stimulus offset is defined; filtering after removal of the DC
+    offset also avoids filter ringing from the step discontinuity at either
+    end of the recording.
 
     Returns a float32 array of shape (cfg.length,).
     """
     signal = _validate_signal(raw_signal)
+    if cfg.baseline_window_ms:
+        signal = baseline_correct(signal, fs, cfg.baseline_window_ms)
     filtered = butterworth_bandpass(
         signal, fs, lowcut=cfg.bandpass_low, highcut=cfg.bandpass_high
     )

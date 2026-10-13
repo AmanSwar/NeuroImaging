@@ -1,10 +1,19 @@
-"""Grad-CAM for the 3D spatial stream of CAFN.
+"""Grad-CAM and Grad-CAM++ for the 3D spatial stream of CAFN.
 
 Backprop starts from the *fused* classification logit by default, so the
 resulting activation map reflects which anatomical zones drove the
 multimodal decision (not just the unimodal spatial head) -- gradients flow
 from `logits_fused` back through the cross-attention fusion module into the
 spatial encoder's last residual block.
+
+v2 adds **Grad-CAM++** (Selvaraju et al., ICCV 2017): instead of weighting
+each channel by the plain average of its gradients, second-order terms
+re-weight pixels that contribute partially but repeatedly -- measurably
+better localization when a class activates *multiple* distinct regions,
+which is exactly the lesion-plus-atrophy picture of the pathologies here.
+
+Both variants return a (B, D, H, W) map in [0, 1]; switch with
+`method="gradcam" | "gradcam++"`.
 """
 
 import matplotlib
@@ -18,23 +27,76 @@ import torch.nn.functional as F
 
 
 class GradCAM3D:
-    def __init__(self, model: nn.Module, target_layer: nn.Module | None = None):
+    def __init__(
+        self,
+        model: nn.Module,
+        target_layer: nn.Module | None = None,
+        method: str = "gradcam",
+    ):
+        if method not in ("gradcam", "gradcam++"):
+            raise ValueError(f"method must be 'gradcam' or 'gradcam++', got {method!r}")
         self.model = model
         self.target_layer = target_layer or model.spatial_encoder.last_conv
+        self.method = method
         self._activations = None
         self._gradients = None
+        self._activations_requires_grad = False
         self._fwd_handle = self.target_layer.register_forward_hook(self._save_activation)
         self._bwd_handle = self.target_layer.register_full_backward_hook(self._save_gradient)
 
     def _save_activation(self, module, inp, out):
-        self._activations = out.detach()
+        # Keep the raw tensor (not detached): Grad-CAM++ needs to
+        # differentiate *through* it, and it already carries requires_grad
+        # from the conv weights upstream.
+        self._activations = out
 
     def _save_gradient(self, module, grad_input, grad_output):
-        self._gradients = grad_output[0].detach()
+        self._gradients = grad_output[0]
 
     def remove_hooks(self) -> None:
         self._fwd_handle.remove()
         self._bwd_handle.remove()
+
+    def _backward_to_activations(self, selected: torch.Tensor):
+        """Propagate `selected` down to the target activations.
+
+        Returns (activations, first_gradients). For Grad-CAM++ the first
+        gradients are created with create_graph=True so higher-order
+        derivative terms can be formed; vanilla mode frees the graph
+        immediately. `torch.autograd.grad` targets the captured (non-leaf)
+        activation tensor directly -- it already requires grad through the
+        upstream conv weights, so no manual flag flipping is needed.
+        """
+        create_graph = self.method == "gradcam++"
+        first = torch.autograd.grad(
+            selected,
+            self._activations,
+            create_graph=create_graph,
+            retain_graph=create_graph,
+        )[0]
+        return self._activations.detach(), first.detach()
+
+    def _gradcam_weights(self, activations: torch.Tensor, first: torch.Tensor) -> torch.Tensor:
+        """Per-channel spatial weights (B, C, 1, 1, 1) for vanilla Grad-CAM."""
+        return first.mean(dim=(2, 3, 4), keepdim=True)
+
+    def _gradcam_pp_weights(self, activations: torch.Tensor, first: torch.Tensor) -> torch.Tensor:
+        """Grad-CAM++ weights via second/third-order derivative estimates.
+
+        Uses the standard second-derivative approximation of the original
+        paper implemented by pytorch-grad-cam: alpha_k combines the first
+        gradient, its square, and its cube with the activation magnitudes,
+        emphasizing channels with many small contributions spread spatially.
+        """
+        second = first**2
+        third = first**3
+        # Sum over spatial dims per (B, C); broadcast back over space.
+        act_sum = activations.sum(dim=(2, 3, 4), keepdim=True)
+        numerator = 2.0 * second
+        denominator = 2.0 * second + third * act_sum
+        alpha = numerator / (denominator + 1e-8)
+        weights = torch.relu(first) * alpha
+        return weights.sum(dim=(2, 3, 4), keepdim=True)
 
     def generate(
         self,
@@ -59,17 +121,18 @@ class GradCAM3D:
             )
 
         selected = logits.gather(1, target_class.view(-1, 1)).sum()
-        selected.backward()
 
+        activations, first = self._backward_to_activations(selected)
+        if self.method == "gradcam++":
+            weights = self._gradcam_pp_weights(activations, first)
+        else:
+            weights = self._gradcam_weights(activations, first)
+
+        self._activations = None
+        self._gradients = None
         if was_training:
             self.model.train()
 
-        activations = self._activations  # (B, C, d, h, w)
-        gradients = self._gradients  # (B, C, d, h, w)
-        if activations is None or gradients is None:
-            raise RuntimeError("Hooks did not capture activations/gradients; check target_layer")
-
-        weights = gradients.mean(dim=(2, 3, 4), keepdim=True)
         cam = F.relu((weights * activations).sum(dim=1, keepdim=True))  # (B, 1, d, h, w)
 
         target_size = mri_volume.shape[2:]
@@ -83,15 +146,38 @@ class GradCAM3D:
 
         return cam.detach(), target_class.detach()
 
+    def generate_with_fallback(
+        self,
+        mri_volume: torch.Tensor,
+        vep_signal: torch.Tensor,
+        target_class: int | torch.Tensor | None = None,
+        logits_key: str = "logits_fused",
+    ) -> tuple[torch.Tensor, torch.Tensor, str]:
+        """Run the configured method, falling back to vanilla Grad-CAM if the
+        higher-order backward pass is unsupported by the current backend
+        (e.g. some MPS builds). Returns (cam, target_class, method_used)."""
+        methods = ("gradcam",) if self.method == "gradcam" else (self.method, "gradcam")
+        last_exc: Exception | None = None
+        for method in methods:
+            self.method = method
+            try:
+                cam, tc = self.generate(mri_volume, vep_signal, target_class, logits_key)
+                return cam, tc, method
+            except Exception as exc:  # backend may not support double backward
+                last_exc = exc
+        assert last_exc is not None
+        raise last_exc
+
 
 def compute_gradcam(
     model: nn.Module,
     mri_volume: torch.Tensor,
     vep_signal: torch.Tensor,
     target_class: int | torch.Tensor | None = None,
+    method: str = "gradcam",
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """One-shot convenience wrapper around GradCAM3D that cleans up its hooks."""
-    cam_engine = GradCAM3D(model)
+    cam_engine = GradCAM3D(model, method=method)
     try:
         return cam_engine.generate(mri_volume, vep_signal, target_class)
     finally:

@@ -1,4 +1,10 @@
-"""3D-CNN / ResNet backbone: structural MRI volume -> spatial tokens."""
+"""3D-CNN / ResNet backbone: structural MRI volume -> spatial tokens.
+
+v2: residual blocks gain Squeeze-and-Excitation channel recalibration
+(Hu et al., 2018). Brain MRI has strong inter-slice intensity variation;
+channel attention lets the encoder suppress uninformative feature channels
+before tokens are pooled, at negligible parameter cost.
+"""
 
 import torch
 import torch.nn as nn
@@ -6,14 +12,36 @@ import torch.nn as nn
 from src.config import ModelConfig, DEFAULT_CONFIG
 
 
+class SEBlock3D(nn.Module):
+    """Squeeze-and-Excitation over the channel dimension of a 3D feature map."""
+
+    def __init__(self, channels: int, reduction: int = 4):
+        super().__init__()
+        hidden = max(1, channels // reduction)
+        self.squeeze = nn.AdaptiveAvgPool3d(1)
+        self.excite = nn.Sequential(
+            nn.Linear(channels, hidden),
+            nn.ReLU(inplace=True),
+            nn.Linear(hidden, channels),
+            nn.Sigmoid(),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        b, c = x.shape[:2]
+        weights = self.excite(self.squeeze(x).flatten(1)).view(b, c, 1, 1, 1)
+        return x * weights
+
+
 class ResidualBlock3D(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, stride: int = 1):
+    def __init__(self, in_channels: int, out_channels: int, stride: int = 1,
+                 se_reduction: int | None = None):
         super().__init__()
         self.conv1 = nn.Conv3d(in_channels, out_channels, 3, stride=stride, padding=1, bias=False)
         self.bn1 = nn.BatchNorm3d(out_channels)
         self.conv2 = nn.Conv3d(out_channels, out_channels, 3, stride=1, padding=1, bias=False)
         self.bn2 = nn.BatchNorm3d(out_channels)
         self.relu = nn.ReLU(inplace=True)
+        self.se = SEBlock3D(out_channels, se_reduction) if se_reduction else nn.Identity()
 
         self.shortcut = None
         if stride != 1 or in_channels != out_channels:
@@ -26,6 +54,7 @@ class ResidualBlock3D(nn.Module):
         identity = x if self.shortcut is None else self.shortcut(x)
         out = self.relu(self.bn1(self.conv1(x)))
         out = self.bn2(self.conv2(out))
+        out = self.se(out)
         return self.relu(out + identity)
 
 
@@ -43,9 +72,10 @@ class SpatialEncoder3D(nn.Module):
             nn.BatchNorm3d(16),
             nn.ReLU(inplace=True),
         )
-        self.layer1 = ResidualBlock3D(16, 32, stride=2)
-        self.layer2 = ResidualBlock3D(32, 64, stride=2)
-        self.layer3 = ResidualBlock3D(64, cfg.d_model, stride=2)
+        se = cfg.se_reduction
+        self.layer1 = ResidualBlock3D(16, 32, stride=2, se_reduction=se)
+        self.layer2 = ResidualBlock3D(32, 64, stride=2, se_reduction=se)
+        self.layer3 = ResidualBlock3D(64, cfg.d_model, stride=2, se_reduction=se)
         self.last_conv = self.layer3
 
         self.pool = nn.AdaptiveAvgPool3d(cfg.spatial_pool)

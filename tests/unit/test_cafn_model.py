@@ -36,6 +36,9 @@ class TestCAFNForward:
             tiny_config.model.spatial_tokens,
             tiny_config.model.temporal_tokens,
         )
+        # v2: the backward (latency reads cortex) map exists whenever the
+        # bidirectional fusion is active.
+        assert "attn_weights_backward" in out
 
     def test_batch_size_one(self, tiny_config):
         model = CAFN(tiny_config.model)

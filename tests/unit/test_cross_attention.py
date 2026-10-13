@@ -49,7 +49,8 @@ class TestCrossAttentionFusion:
         temporal = torch.randn(2, tiny_config.model.temporal_tokens, tiny_config.model.d_model)
         fused, weights = fusion(spatial, temporal)
         assert fused.shape == spatial.shape
-        assert weights.shape[:2] == (2, tiny_config.model.num_heads)
+        assert set(weights.keys()) == {"forward"}
+        assert weights["forward"].shape[:2] == (2, tiny_config.model.num_heads)
 
     def test_output_is_finite(self, tiny_config):
         fusion = CrossAttentionFusion(tiny_config.model)

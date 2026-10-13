@@ -1,11 +1,15 @@
 """Central configuration for shapes, hyperparameters, and class labels.
 
-Keeping these in one place guarantees the preprocessing stream, both
-encoders, the fusion module, and the training loop all agree on tensor
-shapes without hardcoding magic numbers in multiple files.
+Single source of truth so the preprocessing stream, both encoders, the
+fusion module, and the training loop cannot silently disagree on shapes or
+feature names. `merge_model_config` upgrades legacy/older checkpoints to the
+current field set.
+
+Every field has a default, so `dataclasses.replace`, explicit kwargs in
+tests, and the CLI all keep working as fields evolve.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields, is_dataclass
 
 
 CLASS_NAMES = ("Healthy Control", "Glaucoma", "Optic Neuritis / CVI")
@@ -17,6 +21,12 @@ class MRIConfig:
     target_spacing: tuple[float, float, float] = (1.0, 1.0, 1.0)
     orientation: str = "RAS"
     foreground_percentile: float = 60.0  # intensity-threshold skull-strip approx
+    # "percentile" (v1) or "otsu" (histogram-optimal threshold; recommended
+    # for real MRI where tissue classes are separated).
+    mask_method: str = "percentile"
+    mask_morphology: bool = True         # connected-component cleanup for Otsu masks
+    # "minmax" -> [0, 1] scaling (v1); "zscore" -> foreground ~N(0,1), bg zeroed.
+    normalization: str = "minmax"
 
 
 @dataclass(frozen=True)
@@ -27,6 +37,10 @@ class VEPConfig:
     bandpass_high: float = 100.0
     notch_freq: float = 50.0
     notch_quality: float = 30.0
+    # Baseline correction over the first `baseline_window_ms` of each sweep
+    # (standard electrophysiology: subtract pre-stimulus mean). None disables
+    # it; synthetic sweeps carry no true pre-stimulus interval.
+    baseline_window_ms: float | None = None
 
 
 @dataclass(frozen=True)
@@ -39,6 +53,18 @@ class ModelConfig:
     ffn_hidden: int = 256
     dropout: float = 0.1
     num_classes: int = len(CLASS_NAMES)
+    # --- v2 ---
+    fusion: str = "bidirectional"         # label for the fusion strategy (CLI/docs)
+    pos_encoding: bool = True             # learned spatial / sinusoidal temporal embeddings
+    pooling: str = "attn"                 # "attn" (learned pool) or "mean" (v1)
+    modality_dropout: float = 0.0         # train-time p of dropping a sample's VEP stream
+    fusion_blocks: int = 1                # stacked pre-norm co-attention blocks
+    se_reduction: int | None = 4          # Squeeze-Excitation reduction in spatial blocks; None off
+
+    @property
+    def bidirectional(self) -> bool:
+        """Back-compat alias for the v1 boolean flag name."""
+        return self.fusion == "bidirectional"
 
 
 @dataclass(frozen=True)
@@ -51,6 +77,55 @@ class TrainConfig:
     val_split: float = 0.2
     seed: int = 42
     checkpoint_dir: str = "checkpoints"
+    # --- v2 ---
+    optimizer: str = "adamw"              # reserved for optimizer selection
+    scheduler: str = "cosine"             # linear-warmup -> cosine decay | "none"
+    warmup_fraction: float = 0.1          # fraction of total steps: linear LR warmup
+    max_grad_norm: float = 1.0            # 0 disables gradient clipping
+    patience: int | None = None           # early-stopping patience; None disables
+    num_workers: int = 0
+    amp: bool = False                     # mixed precision (CUDA only)
+    balance_classes: bool = False         # inverse-frequency CE weights for imbalanced data
+    label_smoothing: float = 0.0          # CE label smoothing on all heads
+    deterministic: bool = False           # seed_everything(deterministic=True)
+    augment: bool = True                  # train-time augmentation (val always clean)
+    device: str | None = None             # explicit device override; None = auto
+
+    @property
+    def grad_clip_norm(self) -> float:
+        """Alias for `max_grad_norm` (older call sites used this name)."""
+        return self.max_grad_norm
+
+
+@dataclass(frozen=True)
+class AugmentConfig:
+    """Train-time augmentation knobs (see src/data/augment.py).
+
+    Augmentation never destroys class-defining markers: MRI gets flips,
+    intensity jitter and noise; VEP gets amplitude scale and noise only --
+    the waveform is never time-shifted because P100 latency carries the
+    class signal. `enabled` gates every transform; dataset/train opt in
+    explicitly, so default-on here changes nothing for existing callers.
+    """
+
+    enabled: bool = True
+    mri_flip_prob: float = 0.5
+    mri_intensity_scale: tuple[float, float] = (0.95, 1.05)
+    mri_intensity_shift: float = 0.02
+    mri_noise_std: float = 0.01
+    vep_amplitude_scale: tuple[float, float] = (0.9, 1.1)
+    vep_noise_std: float = 0.02
+
+    def __post_init__(self) -> None:
+        if not 0.0 <= self.mri_flip_prob <= 1.0:
+            raise ValueError("mri_flip_prob must be in [0, 1]")
+        if not (0.0 <= self.mri_intensity_scale[0] <= self.mri_intensity_scale[1]):
+            raise ValueError("mri_intensity_scale must satisfy 0 <= lo <= hi")
+        for std in (self.mri_noise_std, self.vep_noise_std):
+            if std < 0:
+                raise ValueError("noise std must be >= 0")
+        if not (0.0 <= self.vep_amplitude_scale[0] <= self.vep_amplitude_scale[1]):
+            raise ValueError("vep_amplitude_scale must satisfy 0 <= lo <= hi")
 
 
 @dataclass(frozen=True)
@@ -59,6 +134,48 @@ class Config:
     vep: VEPConfig = field(default_factory=VEPConfig)
     model: ModelConfig = field(default_factory=ModelConfig)
     train: TrainConfig = field(default_factory=TrainConfig)
+    augment: AugmentConfig = field(default_factory=AugmentConfig)
 
 
 DEFAULT_CONFIG = Config()
+
+
+def merge_model_config(legacy: object | None, **overrides) -> ModelConfig:
+    """Build a current `ModelConfig` from a stored/partial config.
+
+    Accepts a ModelConfig (any vintage), a plain dict, or None, plus explicit
+    overrides. Legacy boolean/renamed fields are mapped forward:
+    `bidirectional` -> `fusion`, `use_positional_encoding` -> `pos_encoding`.
+    Unknown fields are ignored so old checkpoints always load.
+    """
+    if legacy is None:
+        legacy = {}
+    if isinstance(legacy, dict):
+        raw = dict(legacy)
+    elif is_dataclass(legacy):
+        raw = {f.name: getattr(legacy, f.name) for f in fields(legacy)}
+    else:
+        # Plain object (e.g. a legacy stub from an old checkpoint)
+        raw = dict(vars(legacy))
+
+    if "fusion" not in raw and "bidirectional" in raw:
+        raw["fusion"] = "bidirectional" if raw.pop("bidirectional") else "cross"
+    else:
+        raw.pop("bidirectional", None)
+    if "fusion_blocks" not in raw and "num_fusion_layers" in raw:
+        raw["fusion_blocks"] = raw.pop("num_fusion_layers")
+
+    current = {f.name: f.default for f in fields(ModelConfig)}
+
+    merged: dict = {}
+    for name, value in raw.items():
+        if name == "use_positional_encoding":
+            merged["pos_encoding"] = bool(value)
+        elif name in current:
+            merged[name] = value
+    merged.update(overrides)
+
+    invalid = set(merged) - set(current)
+    if invalid:
+        raise ValueError(f"Unknown ModelConfig field(s): {sorted(invalid)}")
+    return ModelConfig(**merged)

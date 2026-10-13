@@ -6,11 +6,13 @@ exactly as a real training/inference run would use them.
 import numpy as np
 import torch
 
+from src.config import Config
 from src.data.dataset import PairedNeuroDataset
 from src.data.synthetic import write_synthetic_dataset
 from src.explainability.grad_cam_3d import compute_gradcam, plot_gradcam_slices
 from src.explainability.plot_attention import plot_cross_attention
 from src.models.cafn import CAFN
+from src.train import save_checkpoint
 
 
 class TestFullPipelineFromRawFiles:
@@ -77,6 +79,40 @@ class TestExplainabilityOnRealPipelineOutput:
         heatmap = plot_cross_attention(out["attn_weights"], str(attn_path))
         assert attn_path.exists() and attn_path.stat().st_size > 0
         assert heatmap.shape == (tiny_config.model.spatial_tokens, tiny_config.model.temporal_tokens)
+
+
+class TestPredictCLISmoke:
+    def test_main_entrypoint_exists_and_runs(self, tmp_path):
+        """Regression: the v2 refactor dropped `main()`/`__main__` from
+        src/predict.py, so `python -m src.predict` silently did nothing
+        (exit 0, no artifacts). This pins the CLI shell in place."""
+        from src.data.synthetic import write_synthetic_dataset
+        from src.models.cafn import CAFN
+        from src.train import save_checkpoint
+        from src.predict import main as predict_main
+
+        manifest = write_synthetic_dataset(str(tmp_path / "raw"), samples_per_class=1,
+                                           cfg=tiny_config, seed=3)
+        import csv as _csv
+        row = list(_csv.DictReader(open(manifest)))[0]  # noqa: SIM115
+        ckpt = str(tmp_path / "cli.pt")
+        save_checkpoint(CAFN(tiny_config.model), ckpt,
+                        Config(mri=tiny_config.mri, vep=tiny_config.vep, model=tiny_config.model))
+
+        outdir = tmp_path / "cli_out"
+        predict_main([
+            "--checkpoint", ckpt,
+            "--mri", row["mri_path"],
+            "--vep", row["vep_path"],
+            "--fs", str(row["fs"]),
+            "--outdir", str(outdir),
+        ])
+        for name in ("prediction.json", "cross_attention.png", "gradcam.png"):
+            assert (outdir / name).exists() and (outdir / name).stat().st_size > 0
+        import json
+        result = json.loads((outdir / "prediction.json").read_text())
+        assert result["predicted_class"] in (0, 1, 2)
+        assert result["predicted_label"] in ("Healthy Control", "Glaucoma", "Optic Neuritis / CVI")
 
 
 class TestClassConditionedSignalIsLearnable:
