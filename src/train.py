@@ -382,6 +382,12 @@ def train_model(
     label_smoothing = float(getattr(tcfg, "label_smoothing", 0.0) or 0.0)
     patience = getattr(tcfg, "patience", None)  # None = off; 0 = stop after 1 plateau epoch
 
+    select_metric = str(getattr(tcfg, "select_metric", "val_loss") or "val_loss")
+    if select_metric not in ("val_loss", "val_balanced_accuracy", "val_macro_f1"):
+        raise ValueError(
+            f"select_metric must be val_loss, val_balanced_accuracy or val_macro_f1; got {select_metric!r}"
+        )
+    best_score = float("-inf")
     start_epoch = 0
     best_val_loss = float("inf")
     if resume:
@@ -473,8 +479,17 @@ def train_model(
             history["val_balanced_accuracy"].append(metrics["balanced_accuracy"])
             history["val_macro_f1"].append(metrics["macro_f1"])
 
-            if metrics["loss"] < best_val_loss - 1e-5:
+            if select_metric == "val_loss":
+                improved = metrics["loss"] < best_val_loss - 1e-5
+            else:  # higher-is-better score; ties are broken on val loss
+                score = float(metrics[select_metric[len("val_"):]])
+                improved = score > best_score + 1e-9 or (
+                    abs(score - best_score) <= 1e-9 and metrics["loss"] < best_val_loss - 1e-5
+                )
+            if improved:
                 best_val_loss = metrics["loss"]
+                if select_metric != "val_loss":
+                    best_score = score
                 best_state = copy.deepcopy(model.state_dict())
                 epochs_since_best = 0
             else:
@@ -800,6 +815,7 @@ def _final_detailed_report(model, splits: dict, cfg: Config, device: torch.devic
         )
 
         os.makedirs(out_dir, exist_ok=True)
+        model.to(device)
         for name in ("val", "test"):
             loader = _eval_loader(splits.get(name), cfg, device)
             if loader is None:
@@ -816,7 +832,7 @@ def _final_detailed_report(model, splits: dict, cfg: Config, device: torch.devic
 
 def _run_eval_only(args, cfg: Config, splits: dict, device: torch.device) -> None:
     """--eval-only: load a checkpoint and report detailed metrics."""
-    model = load_checkpoint(args.eval_only, cfg)
+    model = load_checkpoint(args.eval_only, cfg).to(device)
     out_dir = os.path.join(cfg.train.checkpoint_dir, getattr(args, "run_name", "run") or "run")
     print(f"loaded checkpoint {args.eval_only}")
     _final_detailed_report(model, splits, cfg, device, out_dir=out_dir)

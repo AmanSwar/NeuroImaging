@@ -148,9 +148,10 @@ class TestMultiTaskCE:
     def test_class_weights_change_loss(self, tiny_config):
         test_model = CAFN(tiny_config.model)
         _, vep, _ = _batch(tiny_config.model)
-        # Fixed labels in class 0 so the (5,1,1) weight vector must bite.
+        # Mixed labels: with a weighted *mean*, weights cancel exactly when every
+        # target is the same class, so the (5,1,1) vector only bites on a mix.
         mri = torch.randn(2, 1, 32, 32, 32)
-        labels = torch.tensor([0, 0])
+        labels = torch.tensor([0, 1])
         out = test_model(mri, vep)
         unweighted, _ = multi_task_ce(out, labels)
         weighted, _ = multi_task_ce(out, labels, class_weights=torch.tensor([5.0, 1.0, 1.0]))

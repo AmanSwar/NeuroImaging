@@ -12,6 +12,7 @@ import torch
 import torch.nn as nn
 
 from src.config import ModelConfig, DEFAULT_CONFIG
+from src.models.pooling import AdaptiveAvgPool
 
 
 class MultiScaleResidual1D(nn.Module):
@@ -58,7 +59,7 @@ class TemporalEncoder1D(nn.Module):
             stages.append(MultiScaleResidual1D(width))
             prev = width
         self.net = nn.Sequential(*stages)
-        self.pool = nn.AdaptiveAvgPool1d(cfg.temporal_tokens)
+        self.pool = AdaptiveAvgPool(cfg.temporal_tokens)
         self.d_model = cfg.d_model
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

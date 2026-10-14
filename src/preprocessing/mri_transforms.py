@@ -208,8 +208,18 @@ def preprocess_mri_volume(
             f"Unknown normalization {cfg.normalization!r}; expected 'minmax' or 'zscore'"
         )
 
-    pad_crop = ResizeWithPadOrCrop(spatial_size=cfg.target_shape)
-    standardized = np.asarray(pad_crop(normalized))
+    if cfg.fit == "bbox_resize" and mask.any():
+        idx = np.argwhere(mask)
+        lo = np.maximum(idx.min(axis=0) - 2, 0)
+        hi = np.minimum(idx.max(axis=0) + 3, mask.shape)
+        cropped = normalized[(slice(None),) + tuple(slice(a, b) for a, b in zip(lo, hi))]
+        resize = Resize(spatial_size=cfg.target_shape, mode="trilinear", align_corners=False)
+        standardized = np.asarray(resize(cropped))
+    elif cfg.fit in ("crop", "bbox_resize"):
+        pad_crop = ResizeWithPadOrCrop(spatial_size=cfg.target_shape)
+        standardized = np.asarray(pad_crop(normalized))
+    else:
+        raise ValueError(f"Unknown fit {cfg.fit!r}; expected 'crop' or 'bbox_resize'")
     return standardized.astype(np.float32)
 
 

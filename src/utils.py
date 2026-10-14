@@ -1,5 +1,7 @@
 """Shared training utilities: reproducibility, device selection, label access."""
 
+from __future__ import annotations
+
 import os
 import random
 

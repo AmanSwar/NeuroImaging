@@ -347,3 +347,29 @@ Companion details to the sections above; quickstart lives in `README.md`.
   `use_positional_encoding -> pos_encoding`, `num_fusion_layers ->
   fusion_blocks`) and drops unknown keys.
 
+
+---
+
+## Real-data multi-cohort pipeline (v4)
+
+`./run_all.sh` runs download -> preprocess -> train -> validate -> test end to end (see `README.md`).
+Cohorts: OpenNeuro ds003568 (MDD vs healthy, T1w + resting MEG), ds007181 (zoster neuralgia vs healthy, T1w +
+PSG EEG), optional ds008894. The 1-D stream is the channel-averaged 1-45 Hz log-PSD (`VEPConfig.signal_mode="spectrum"`),
+MRI is Otsu-masked, z-scored and resized to 64^3 from the foreground bounding box (`MRIConfig.fit="bbox_resize"`;
+a centre crop of a whole-head scan sees only a sliver). Protocol: per-cohort 70/15/15 splits, a pooled model reported
+per cohort, and leave-one-cohort-out; checkpoints are selected on validation balanced accuracy
+(`TrainConfig.select_metric`), which fixes short runs restoring an untrained epoch 1.
+
+Other changes made while validating on a Linux/CUDA machine:
+
+- `src/models/pooling.py`: deterministic adaptive average pooling (per-axis matmul) replaces
+  `nn.AdaptiveAvgPool{1,3}d`, whose CUDA backward is non-deterministic and which is unimplemented on MPS.
+  Outputs match the PyTorch op; no parameters, so existing checkpoints load unchanged.
+- `src/utils.py`: `from __future__ import annotations` -- an un-imported `Subset` annotation raised `NameError` on
+  Python 3.10-3.13 (it only worked on 3.14, which defers annotation evaluation).
+- `--eval-only` moved the loaded checkpoint to the compute device (it silently skipped the detailed report on CUDA).
+- `test_class_weights_change_loss` used all-identical labels, for which a weighted mean is mathematically unchanged.
+
+Known limitations: the label "patient" means a different disorder in each cohort; cohorts differ in sensor
+(MEG vs EEG) so a cohort-identity shortcut is possible (the summary reports a probe for it); skull-stripping is
+still an Otsu foreground mask rather than HD-BET/SynthStrip.

@@ -100,3 +100,29 @@ class TestPreprocessMriFile:
         out = preprocess_mri_file(path)
         assert out.shape == (1, *DEFAULT_CONFIG.mri.target_shape)
         assert np.all(np.isfinite(out))
+
+
+def test_bbox_resize_fits_whole_head_instead_of_centre_crop():
+    """A 150^3 'head' must be rescaled into 64^3, not centre-cropped to a 64^3 sliver."""
+    import numpy as np
+    from src.config import MRIConfig
+    from src.preprocessing.mri_transforms import preprocess_mri_volume
+
+    g = np.indices((150, 150, 150)).astype(float) - 75
+    head = np.where(np.sqrt((g ** 2).sum(0)) < 60, 100.0, 0.0).astype(np.float32)
+    crop = preprocess_mri_volume(head, (1, 1, 1), MRIConfig(mask_method="otsu", normalization="zscore", fit="crop"))
+    boxed = preprocess_mri_volume(head, (1, 1, 1), MRIConfig(mask_method="otsu", normalization="zscore", fit="bbox_resize"))
+    assert crop.shape == boxed.shape == (1, 64, 64, 64)
+    # the crop sees only head interior (no background); the resized volume contains the whole object edge
+    assert (crop[0] == 0).mean() < 0.01
+    assert (boxed[0] == 0).mean() > 0.05 and np.isfinite(boxed).all()
+
+
+def test_unknown_fit_is_rejected():
+    import numpy as np
+    import pytest
+    from src.config import MRIConfig
+    from src.preprocessing.mri_transforms import preprocess_mri_volume
+
+    with pytest.raises(ValueError, match="fit"):
+        preprocess_mri_volume(np.random.rand(20, 20, 20).astype(np.float32), (1, 1, 1), MRIConfig(fit="stretch"))

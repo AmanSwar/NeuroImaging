@@ -10,6 +10,7 @@ import torch
 import torch.nn as nn
 
 from src.config import ModelConfig, DEFAULT_CONFIG
+from src.models.pooling import AdaptiveAvgPool
 
 
 class SEBlock3D(nn.Module):
@@ -18,7 +19,7 @@ class SEBlock3D(nn.Module):
     def __init__(self, channels: int, reduction: int = 4):
         super().__init__()
         hidden = max(1, channels // reduction)
-        self.squeeze = nn.AdaptiveAvgPool3d(1)
+        self.squeeze = AdaptiveAvgPool(1)
         self.excite = nn.Sequential(
             nn.Linear(channels, hidden),
             nn.ReLU(inplace=True),
@@ -78,7 +79,7 @@ class SpatialEncoder3D(nn.Module):
         self.layer3 = ResidualBlock3D(64, cfg.d_model, stride=2, se_reduction=se)
         self.last_conv = self.layer3
 
-        self.pool = nn.AdaptiveAvgPool3d(cfg.spatial_pool)
+        self.pool = AdaptiveAvgPool(cfg.spatial_pool)
         self.d_model = cfg.d_model
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

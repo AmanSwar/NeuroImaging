@@ -9,3 +9,8 @@ data/raw/mri/*
 data/raw/vep/*
 data/processed/*
 .DS_Store
+data/raw/ds*/
+data/raw/download_manifest.json
+logs/
+results/
+.state/

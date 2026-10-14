@@ -20,6 +20,49 @@ python -m src.train --eval-only checkpoints/<run>/best.pt --synthetic-samples 64
 python -c "from src.predict import run; run('checkpoints/<run>/best.pt', 'mri.nii.gz', 'vep.csv', outdir='out')"
 ```
 
+## Real-data pipeline: multi-cohort experiment (one command)
+
+```bash
+./run_all.sh --smoke   # 1 subject per group, 2 epochs: checks the plumbing (~minutes + a small download)
+./run_all.sh           # full run: download -> preprocess -> train -> validate -> test (leave it overnight)
+```
+
+`run_all.sh` creates the virtualenv, runs pre-flight tests, downloads the public
+cohorts from OpenNeuro, preprocesses them, trains CAFN and writes
+`results/cohorts/summary.md`. Everything is resumable (re-run the same command)
+and seeded by one constant (`SEED = 42`; repeat *k* uses `42 + k`). Every run logs to
+`logs/` and records the exact environment in `results/cohorts/environment.txt`.
+
+| cohort (OpenNeuro) | patients vs controls | paired data | downloaded |
+|---|---|---|---|
+| [ds003568](https://openneuro.org/datasets/ds003568) | 29 MDD vs 22 healthy adolescents | T1w MRI + resting MEG | 43.7 GB |
+| [ds007181](https://openneuro.org/datasets/ds007181) | 32 zoster neuralgia vs 34 healthy | T1w MRI + whole-night PSG EEG | 24.5 GB |
+| [ds008894](https://openneuro.org/datasets/ds008894) (`--tier all`, optional) | 25 mood/suicide-risk vs 18 healthy | T1w MRI + task MEG | 53.9 GB |
+
+**What the model sees.** MRI: RAS reorientation, Otsu mask, foreground z-score, 64^3. 1-D stream: the
+channel-averaged log power spectrum (1-45 Hz, 500 points) of the resting MEG/EEG recording
+(`VEPConfig.signal_mode="spectrum"`; no time-domain filtering). Label: 0 = control, 1 = patient
+(pan-disorder; the disorder differs per cohort -- a deliberate, documented limitation).
+
+**Protocol** (`src/cohort_experiments.py`): each cohort is split 70/15/15 (train/val/test, stratified);
+(1) a **pooled** model is trained on all cohorts and validated/tested *per cohort*; (2) **leave-one-cohort-out**
+trains on the other cohort(s) and tests on every subject of the held-out one. The checkpoint is chosen by
+validation balanced accuracy (`TrainConfig.select_metric`), never on test data. Reports include bootstrap 95%
+CIs, unimodal-head and spectrum-logistic-regression baselines, and a cohort-identity probe.
+
+**Hardware.** The model has ~2 M parameters; training memory is ~0.3-0.6 GB of activations at batch 8 (AMP on CUDA),
+so a 4 GB RTX 2050 is enough; the runner halves the batch size automatically on a CUDA OOM. No GPU?
+It still runs on CPU, just slower. **Windows**: run inside WSL2 (or Git Bash) and disable sleep for overnight runs.
+
+Download-only / manual steps:
+
+```bash
+python scripts/download_datasets.py                 # dry run: file counts + exact sizes
+python scripts/download_datasets.py --yes           # download the core tier
+python -m src.data.cohorts --raw data/raw --out data/processed
+python -m src.cohort_experiments --manifest data/processed/manifest.csv --out results/cohorts
+```
+
 ## Architecture (v2)
 
 ```

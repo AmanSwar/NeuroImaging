@@ -27,6 +27,12 @@ class MRIConfig:
     mask_morphology: bool = True         # connected-component cleanup for Otsu masks
     # "minmax" -> [0, 1] scaling (v1); "zscore" -> foreground ~N(0,1), bg zeroed.
     normalization: str = "minmax"
+    # How the standardised volume is fitted to ``target_shape``:
+    # "crop"        -> centre pad/crop (v1; fine for small synthetic volumes);
+    # "bbox_resize" -> crop to the foreground bounding box, then resample to
+    #                  ``target_shape``. Use for real whole-head MRI (~170 mm
+    #                  at 1 mm), where a centre crop to 64^3 sees only a sliver.
+    fit: str = "crop"
 
 
 @dataclass(frozen=True)
@@ -41,6 +47,11 @@ class VEPConfig:
     # (standard electrophysiology: subtract pre-stimulus mean). None disables
     # it; synthetic sweeps carry no true pre-stimulus interval.
     baseline_window_ms: float | None = None
+    # "waveform": time-domain sweep -> baseline/bandpass/notch/resample/z-score.
+    # "spectrum": the 1-D input is already a spectrum (e.g. a log-PSD from
+    # resting MEG/EEG, see src/data/cohorts.py); filtering would be wrong, so
+    # only resample-to-length + z-score are applied.
+    signal_mode: str = "waveform"
 
 
 @dataclass(frozen=True)
@@ -93,6 +104,11 @@ class TrainConfig:
     class_weights: str | None = None
     label_smoothing: float = 0.0          # CE label smoothing on all heads
     deterministic: bool = False           # seed_everything(deterministic=True)
+    # Which validation quantity picks the restored "best" checkpoint:
+    # "val_loss" (default, v2 behaviour) | "val_balanced_accuracy" | "val_macro_f1".
+    # The accuracy-style options break ties on val loss. Prefer them on small
+    # cohorts: an early, untrained epoch can have the lowest val loss.
+    select_metric: str = "val_loss"
     augment: bool = True                  # train-time augmentation (val always clean)
     device: str | None = None             # explicit device override; None = auto
 

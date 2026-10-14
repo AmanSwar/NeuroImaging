@@ -31,7 +31,11 @@ from src.config import Config, DEFAULT_CONFIG
 from src.data.augment import augment_mri, augment_vep
 from src.data.synthetic import synthetic_mri_volume, synthetic_vep_signal
 from src.preprocessing.mri_transforms import preprocess_mri_file, preprocess_mri_volume
-from src.preprocessing.signal_cleaner import clean_vep_signal
+from src.preprocessing.signal_cleaner import (
+    clean_vep_signal,
+    resample_to_length,
+    zscore_normalize,
+)
 
 
 def compute_class_weights(
@@ -164,7 +168,12 @@ class PairedNeuroDataset(Dataset):
 
     def _load(self, idx: int) -> dict:
         row = self.rows[idx]
-        mri = preprocess_mri_file(row["mri_path"], self.cfg.mri)
+        if str(row["mri_path"]).endswith(".npy"):
+            # Already standardised (1, D, H, W) volume cached by the cohort
+            # preprocessing step -- skip the NIfTI pipeline.
+            mri = np.load(row["mri_path"], allow_pickle=False).astype(np.float32)
+        else:
+            mri = preprocess_mri_file(row["mri_path"], self.cfg.mri)
 
         if str(row["vep_path"]).endswith(".npy"):
             raw_signal = np.load(row["vep_path"], allow_pickle=False).astype(np.float64)
@@ -173,7 +182,12 @@ class PairedNeuroDataset(Dataset):
         else:
             raw_signal = np.loadtxt(row["vep_path"], delimiter=",", skiprows=1)
         fs = float(row.get("fs") or self.cfg.vep.sample_rate)
-        vep = clean_vep_signal(raw_signal, fs, self.cfg.vep)
+        if self.cfg.vep.signal_mode == "spectrum":
+            vep = zscore_normalize(
+                resample_to_length(raw_signal, self.cfg.vep.length)
+            ).astype(np.float32)
+        else:
+            vep = clean_vep_signal(raw_signal, fs, self.cfg.vep)
 
         return {
             "mri": torch.from_numpy(mri),
@@ -199,6 +213,11 @@ class PairedNeuroDataset(Dataset):
     @property
     def class_weights(self) -> torch.Tensor:
         return compute_class_weights(self.labels, self.cfg.model.num_classes)
+
+    @property
+    def cohorts(self) -> list[str]:
+        """Per-row cohort/site id from the optional ``dataset`` manifest column."""
+        return [row.get("dataset") or "unknown" for row in self.rows]
 
 
 class AugmentedView(Dataset):
