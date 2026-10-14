@@ -282,8 +282,15 @@ class SyntheticNeuroDataset(Dataset):
         cache: bool = True,
         augment: bool = False,
         augment_rng: np.random.Generator | None = None,
+        mri_strength: float = 1.0,
+        vep_strength: float = 1.0,
     ):
+        """``mri_strength`` / ``vep_strength`` in [0, 1] scale how informative each
+        modality is about the class (1 = default generator), enabling controlled
+        studies of when fusion helps."""
         self.cfg = cfg
+        self.mri_strength = float(mri_strength)
+        self.vep_strength = float(vep_strength)
         self.num_samples = num_samples
         self.raw_mri_shape = raw_mri_shape
         self.seed = seed
@@ -309,10 +316,14 @@ class SyntheticNeuroDataset(Dataset):
         # num_workers > 0 (workers draw in different orders and each caches
         # different content for the same index).
         item_rng = np.random.default_rng([self.seed, idx])
-        raw_volume = synthetic_mri_volume(label, shape=self.raw_mri_shape, rng=item_rng)
+        raw_volume = synthetic_mri_volume(
+            label, shape=self.raw_mri_shape, rng=item_rng, strength=self.mri_strength
+        )
         mri = preprocess_mri_volume(raw_volume, zooms=(1.0, 1.0, 1.0), cfg=self.cfg.mri)
 
-        raw_signal = synthetic_vep_signal(label, fs=self.cfg.vep.sample_rate, rng=item_rng)
+        raw_signal = synthetic_vep_signal(
+            label, fs=self.cfg.vep.sample_rate, rng=item_rng, strength=self.vep_strength
+        )
         vep = clean_vep_signal(raw_signal, self.cfg.vep.sample_rate, self.cfg.vep)
 
         return {

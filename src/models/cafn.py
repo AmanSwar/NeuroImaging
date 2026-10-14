@@ -55,7 +55,12 @@ from src.models.positional import (
 from src.models.spatial_encoder import SpatialEncoder3D
 from src.models.temporal_encoder import TemporalEncoder1D
 
-FUSION_MODES = ("bidirectional", "cross")
+# "bidirectional"/"cross" use cross-attention. The rest are the fusion baselines
+# used in the literature (element-wise sum / concatenation, cf. CAMF) and the
+# unimodal reference models, for like-for-like ablations.
+ATTENTION_MODES = ("bidirectional", "cross")
+SIMPLE_MODES = ("concat", "sum", "mri_only", "vep_only")
+FUSION_MODES = ATTENTION_MODES + SIMPLE_MODES
 
 
 class CAFN(nn.Module):
@@ -72,12 +77,19 @@ class CAFN(nn.Module):
         self.temporal_encoder = TemporalEncoder1D(cfg)
         self.spatial_pos = SpatialPositionalEmbedding(cfg) if cfg.pos_encoding else None
         self.temporal_pos = TemporalPositionalEmbedding(cfg) if cfg.pos_encoding else None
+        self.fusion = None
+        self.fuse_proj = None
         if cfg.fusion == "bidirectional":
             self.fusion = BidirectionalCrossAttentionFusion(cfg)
-        else:
+        elif cfg.fusion == "cross":
             self.fusion = CrossAttentionFusion(cfg)
+        elif cfg.fusion == "concat":
+            self.fuse_proj = nn.Sequential(
+                nn.Linear(2 * cfg.d_model, cfg.d_model), nn.GELU(), nn.Dropout(cfg.dropout)
+            )
 
-        self.fused_pool = AttentionPool1D(cfg.d_model) if cfg.pooling == "attn" else None
+        use_attn = cfg.fusion in ATTENTION_MODES
+        self.fused_pool = AttentionPool1D(cfg.d_model) if (use_attn and cfg.pooling == "attn") else None
         self.fused_head = nn.Linear(cfg.d_model, cfg.num_classes)
         self.spatial_head = nn.Linear(cfg.d_model, cfg.num_classes)
         self.temporal_head = nn.Linear(cfg.d_model, cfg.num_classes)
@@ -90,6 +102,9 @@ class CAFN(nn.Module):
             spatial_tokens = self.spatial_pos(spatial_tokens)
         if self.temporal_pos is not None:
             temporal_tokens = self.temporal_pos(temporal_tokens)
+
+        if self.cfg.fusion in SIMPLE_MODES:
+            return self._forward_simple(spatial_tokens, temporal_tokens)
 
         fusion_temporal = temporal_tokens
         modality_dropped = None
@@ -144,6 +159,32 @@ class CAFN(nn.Module):
             outputs, labels, aux_weight=aux_weight, class_weights=class_weights
         )
         return total, parts
+
+    def _forward_simple(self, spatial_tokens: torch.Tensor, temporal_tokens: torch.Tensor) -> dict:
+        """Non-attention fusion baselines: mean-pool each stream, then combine."""
+        s_emb = spatial_tokens.mean(dim=1)
+        t_emb = temporal_tokens.mean(dim=1)
+        mode = self.cfg.fusion
+        if mode == "concat":
+            fused = self.fuse_proj(torch.cat([s_emb, t_emb], dim=-1))
+        elif mode == "sum":
+            fused = s_emb + t_emb
+        elif mode == "mri_only":
+            fused = s_emb
+        else:  # vep_only
+            fused = t_emb
+        return {
+            "logits_fused": self.fused_head(fused),
+            "logits_spatial": self.spatial_head(s_emb),
+            "logits_temporal": self.temporal_head(t_emb),
+            "attn_weights": None,
+            "attn_weights_backward": None,
+            "fused_tokens": None,
+            "fused_temporal_tokens": None,
+            "spatial_tokens": spatial_tokens,
+            "temporal_tokens": temporal_tokens,
+            "pool_weights": None,
+        }
 
     @torch.no_grad()
     def embed(self, mri_volume: torch.Tensor, vep_signal: torch.Tensor) -> torch.Tensor:

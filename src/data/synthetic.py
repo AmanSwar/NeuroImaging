@@ -51,15 +51,21 @@ VEP_CLASS_PARAMS = {
 
 
 def synthetic_mri_volume(
-    label: int, shape: tuple[int, int, int] = (80, 96, 64), rng: np.random.Generator | None = None
+    label: int, shape: tuple[int, int, int] = (80, 96, 64), rng: np.random.Generator | None = None,
+    strength: float = 1.0,
 ) -> np.ndarray:
     """Generate a class-conditioned synthetic 3D MRI-like volume.
 
     An elliptical "brain" sits in a noisy background; label 0 (Healthy) is
     lesion-free, label 1 (Glaucoma) carries a random focal hypointensity,
     label 2 (Optic Neuritis / CVI) a random focal hyperintensity.
+
+    ``strength`` in [0, 1] scales the lesion contrast (1 = default; 0 = no
+    visible class signal), which lets experiments control how informative
+    the MRI modality is independently of the VEP.
     """
     rng = rng or np.random.default_rng()
+    mri_strength = float(strength)
     d, h, w = shape
 
     # --- background (air/skull): low-intensity correlated noise ---
@@ -105,14 +111,15 @@ def synthetic_mri_volume(
 
         contrast = rng.uniform(0.35, 0.55) if label == 1 else rng.uniform(1.6, 2.2)
         # Blended contrast keeps edges soft and MRI-plausible.
-        factor = 1.0 + (contrast - 1.0) * falloff
+        factor = 1.0 + (contrast - 1.0) * falloff * mri_strength
         volume = np.where(sphere, volume * factor, volume)
 
     return volume.astype(np.float32)
 
 
 def synthetic_vep_signal(
-    label: int, fs: float = 250.0, duration_s: float = 2.0, rng: np.random.Generator | None = None
+    label: int, fs: float = 250.0, duration_s: float = 2.0, rng: np.random.Generator | None = None,
+    strength: float = 1.0,
 ) -> np.ndarray:
     """Generate a class-conditioned synthetic VEP waveform (N75-P100-N145).
 
@@ -121,7 +128,13 @@ def synthetic_vep_signal(
     (baseline drift, 50 Hz mains hum, EMG noise) are added on top.
     """
     rng = rng or np.random.default_rng()
-    params = VEP_CLASS_PARAMS[label]
+    params = dict(VEP_CLASS_PARAMS[label])
+    if strength != 1.0:
+        # Shrink the class offsets (latency, amplitude) towards the healthy
+        # class: strength 0 makes every class look healthy on the VEP.
+        healthy = VEP_CLASS_PARAMS[0]
+        for k in ("latency_ms", "amplitude"):
+            params[k] = healthy[k] + strength * (params[k] - healthy[k])
     latency = max(
         0.05, rng.normal(params["latency_ms"] / 1000.0, params["latency_sd"] / 1000.0)
     )
