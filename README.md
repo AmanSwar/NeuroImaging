@@ -63,6 +63,24 @@ python -m src.data.cohorts --raw data/raw --out data/processed
 python -m src.cohort_experiments --manifest data/processed/manifest.csv --out results/cohorts
 ```
 
+## Controlled synthetic benchmark and real-cohort cross-validation
+
+```bash
+# Study A: when does fusion help? 12 configurations x seeds, held-out test set (MRI 1.0 : VEP 0.3 informativeness)
+python -m src.ablation_synthetic --settings 1.0:0.3 --seeds 0 1 2 3 4 --out results/synth_main
+python -m src.ablation_synthetic --settings 1.0:0.15 1.0:0.3 1.0:0.5 1.0:1.0 --seeds 0 1 \
+    --variants "CAFN (full)" "Concatenation" "MRI only" "VEP only" --out results/synth_sweep
+# Study B: repeated CV on the 95 real subjects, baselines, bootstrap CIs, permutation tests
+python -m src.cv_real --manifest data/processed/manifest.csv --out results/real_cv
+```
+
+`ModelConfig.fusion` also accepts `concat`, `sum`, `mri_only`, `vep_only` (literature fusion baselines and unimodal
+references sharing the same encoders and recipe), and `SyntheticNeuroDataset(mri_strength=, vep_strength=)` sets how much
+class information each modality carries. Findings (see `docs/` for the paper, report and slides): fusion beats the
+better single modality by ~10.7 points in the synthetic benchmark, but cross-attention is statistically indistinguishable
+from concatenation/sum and no single ablation is reliable; on the two real cohorts neural fusion is at chance (AUC 0.51) and
+only a weak spectral signal (AUC 0.56-0.62) is detectable.
+
 ## Architecture (v2)
 
 ```
