@@ -1,0 +1,273 @@
+{
+ "n": 95,
+ "cohorts": {
+  "ds003568": 47,
+  "ds007181": 48
+ },
+ "n_patient": 50,
+ "repeats": 5,
+ "models": {
+  "Spectrum (500-pt) \u00b7 LogReg": {
+   "per_repeat": [
+    {
+     "auc": 0.5622222222222222,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5577777777777778,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5697777777777778,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5657777777777776,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5613333333333332,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    }
+   ],
+   "ci95_repeat0": {
+    "auc": [
+     0.4477878226424738,
+     0.678235328501286
+    ],
+    "balanced_accuracy": [
+     0.4944068139349277,
+     0.6844654255319148
+    ]
+   },
+   "perm_p_repeat0": 0.024875621890547265
+  },
+  "Band powers (5) \u00b7 LogReg": {
+   "per_repeat": [
+    {
+     "auc": 0.5671111111111111,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5653333333333332,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5711111111111111,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5675555555555556,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5617777777777777,
+     "balanced_accuracy": 0.59,
+     "accuracy": 0.5894736842105263
+    }
+   ],
+   "ci95_repeat0": {
+    "auc": [
+     0.45331427304964544,
+     0.6831603174603175
+    ],
+    "balanced_accuracy": [
+     0.4944068139349277,
+     0.6844654255319148
+    ]
+   },
+   "perm_p_repeat0": 0.004975124378109453
+  },
+  "Band powers (5) \u00b7 Random forest": {
+   "per_repeat": [
+    {
+     "auc": 0.4813333333333334,
+     "balanced_accuracy": 0.51,
+     "accuracy": 0.5157894736842106
+    },
+    {
+     "auc": 0.556,
+     "balanced_accuracy": 0.5844444444444444,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.5642222222222222,
+     "balanced_accuracy": 0.5233333333333333,
+     "accuracy": 0.5263157894736842
+    },
+    {
+     "auc": 0.4911111111111111,
+     "balanced_accuracy": 0.5344444444444444,
+     "accuracy": 0.5368421052631579
+    },
+    {
+     "auc": 0.49777777777777776,
+     "balanced_accuracy": 0.5411111111111111,
+     "accuracy": 0.5473684210526316
+    }
+   ],
+   "ci95_repeat0": {
+    "auc": [
+     0.36140632798573974,
+     0.6021217532467532
+    ],
+    "balanced_accuracy": [
+     0.413327380952381,
+     0.6111953282695417
+    ]
+   },
+   "perm_p_repeat0": 0.7263681592039801
+  },
+  "MRI (8\u00b3 \u2192 PCA-20) \u00b7 LogReg": {
+   "per_repeat": [
+    {
+     "auc": 0.5515555555555555,
+     "balanced_accuracy": 0.5977777777777777,
+     "accuracy": 0.6
+    },
+    {
+     "auc": 0.6213333333333333,
+     "balanced_accuracy": 0.5766666666666667,
+     "accuracy": 0.5789473684210527
+    },
+    {
+     "auc": 0.5697777777777777,
+     "balanced_accuracy": 0.5855555555555556,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.615111111111111,
+     "balanced_accuracy": 0.5666666666666667,
+     "accuracy": 0.5684210526315789
+    },
+    {
+     "auc": 0.5764444444444445,
+     "balanced_accuracy": 0.5955555555555556,
+     "accuracy": 0.6
+    }
+   ],
+   "ci95_repeat0": {
+    "auc": [
+     0.43346176122931435,
+     0.672019060283688
+    ],
+    "balanced_accuracy": [
+     0.4927835804132974,
+     0.6954334762890663
+    ]
+   },
+   "perm_p_repeat0": 0.23880597014925373
+  },
+  "MRI + band powers \u00b7 LogReg": {
+   "per_repeat": [
+    {
+     "auc": 0.5528888888888888,
+     "balanced_accuracy": 0.5977777777777777,
+     "accuracy": 0.6
+    },
+    {
+     "auc": 0.6235555555555555,
+     "balanced_accuracy": 0.5655555555555556,
+     "accuracy": 0.5684210526315789
+    },
+    {
+     "auc": 0.5680000000000001,
+     "balanced_accuracy": 0.5855555555555556,
+     "accuracy": 0.5894736842105263
+    },
+    {
+     "auc": 0.6186666666666666,
+     "balanced_accuracy": 0.5666666666666667,
+     "accuracy": 0.5684210526315789
+    },
+    {
+     "auc": 0.5755555555555556,
+     "balanced_accuracy": 0.5855555555555556,
+     "accuracy": 0.5894736842105263
+    }
+   ],
+   "ci95_repeat0": {
+    "auc": [
+     0.432619621749409,
+     0.6737709542230819
+    ],
+    "balanced_accuracy": [
+     0.4927835804132974,
+     0.6954334762890663
+    ]
+   },
+   "perm_p_repeat0": 0.23383084577114427
+  }
+ },
+ "lodo": {
+  "Spectrum (500-pt) \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.632183908045977,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.5714285714285714,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.5625
+   }
+  },
+  "Band powers (5) \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.5019157088122606,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.4779541446208113,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.5625
+   }
+  },
+  "Band powers (5) \u00b7 Random forest": {
+   "ds003568": {
+    "auc": 0.5,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.5,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.5625
+   }
+  },
+  "MRI (8\u00b3 \u2192 PCA-20) \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.40229885057471265,
+    "balanced_accuracy": 0.4281609195402299,
+    "accuracy": 0.48936170212765956
+   },
+   "ds007181": {
+    "auc": 0.4409171075837742,
+    "balanced_accuracy": 0.4656084656084656,
+    "accuracy": 0.4583333333333333
+   }
+  },
+  "MRI + band powers \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.4137931034482758,
+    "balanced_accuracy": 0.4262452107279694,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.45855379188712525,
+    "balanced_accuracy": 0.5132275132275133,
+    "accuracy": 0.5
+   }
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "params": {
+  "Spatial encoder (3D ResNet + SE)": 894504,
+  "Temporal encoder (multi-scale 1D CNN)": 785936,
+  "Gated bidirectional fusion": 265218,
+  "Positional embeddings": 8192,
+  "Attention pool": 129,
+  "Heads (3)": 1161
+ },
+ "total": 1955140,
+ "macs_64_M": 2599.602496,
+ "macs_32_M": 392.21536,
+ "component_macs_64_M": {
+  "Spatial encoder (3D ResNet + SE)": 2522.68288,
+  "Temporal encoder (multi-scale 1D CNN)": 65.892032,
+  "Gated bidirectional fusion": 11.010048
+ }
+}

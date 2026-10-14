@@ -1,0 +1,3118 @@
+{
+ "synthetic_main": [
+  {
+   "variant": "CAFN (full)",
+   "n_seeds": 7,
+   "acc_mean": 0.780952380952381,
+   "acc_sd": 0.02342950701448494,
+   "f1_mean": 0.7803205210237721,
+   "f1_sd": 0.024184619731305874,
+   "params": 1955140,
+   "diff_vs_full_mean": 0.0,
+   "wins_vs_full": 0,
+   "per_seed": [
+    0.8166666666666667,
+    0.8,
+    0.775,
+    0.75,
+    0.7916666666666666,
+    0.7583333333333333,
+    0.775
+   ]
+  },
+  {
+   "variant": "w/o bidirectional",
+   "n_seeds": 5,
+   "acc_mean": 0.7699999999999999,
+   "acc_sd": 0.0554652043076458,
+   "f1_mean": 0.766855505629074,
+   "f1_sd": 0.051080132377015114,
+   "params": 1822658,
+   "diff_vs_full_mean": -0.016666666666666673,
+   "wins_vs_full": 2,
+   "per_seed": [
+    0.7333333333333333,
+    0.8,
+    0.8,
+    0.6916666666666667,
+    0.825
+   ]
+  },
+  {
+   "variant": "w/o positional enc.",
+   "n_seeds": 5,
+   "acc_mean": 0.7866666666666665,
+   "acc_sd": 0.039352396510391977,
+   "f1_mean": 0.7852076321401233,
+   "f1_sd": 0.03916791379541157,
+   "params": 1946948,
+   "diff_vs_full_mean": -2.2204460492503132e-17,
+   "wins_vs_full": 4,
+   "per_seed": [
+    0.725,
+    0.825,
+    0.7833333333333333,
+    0.7833333333333333,
+    0.8166666666666667
+   ]
+  },
+  {
+   "variant": "w/o attention pooling",
+   "n_seeds": 5,
+   "acc_mean": 0.7766666666666666,
+   "acc_sd": 0.020749832663314528,
+   "f1_mean": 0.7718444168425015,
+   "f1_sd": 0.02172597543218439,
+   "params": 1955011,
+   "diff_vs_full_mean": -0.010000000000000009,
+   "wins_vs_full": 2,
+   "per_seed": [
+    0.7416666666666667,
+    0.7916666666666666,
+    0.7916666666666666,
+    0.775,
+    0.7833333333333333
+   ]
+  },
+  {
+   "variant": "w/o SE blocks",
+   "n_seeds": 5,
+   "acc_mean": 0.775,
+   "acc_sd": 0.05863019699779285,
+   "f1_mean": 0.7683121942925636,
+   "f1_sd": 0.06839919782939363,
+   "params": 1944108,
+   "diff_vs_full_mean": -0.011666666666666691,
+   "wins_vs_full": 2,
+   "per_seed": [
+    0.7583333333333333,
+    0.825,
+    0.825,
+    0.6833333333333333,
+    0.7833333333333333
+   ]
+  },
+  {
+   "variant": "w/o auxiliary loss",
+   "n_seeds": 5,
+   "acc_mean": 0.7733333333333333,
+   "acc_sd": 0.05664215155988811,
+   "f1_mean": 0.7724377190227224,
+   "f1_sd": 0.05776493685415907,
+   "params": 1955140,
+   "diff_vs_full_mean": -0.01333333333333333,
+   "wins_vs_full": 3,
+   "per_seed": [
+    0.6916666666666667,
+    0.8083333333333333,
+    0.7666666666666667,
+    0.7583333333333333,
+    0.8416666666666667
+   ]
+  },
+  {
+   "variant": "2 fusion blocks",
+   "n_seeds": 5,
+   "acc_mean": 0.7699999999999999,
+   "acc_sd": 0.01624465724134827,
+   "f1_mean": 0.7653099927175496,
+   "f1_sd": 0.020969022748026415,
+   "params": 2220100,
+   "diff_vs_full_mean": -0.016666666666666673,
+   "wins_vs_full": 1,
+   "per_seed": [
+    0.75,
+    0.7916666666666666,
+    0.7583333333333333,
+    0.775,
+    0.775
+   ]
+  },
+  {
+   "variant": "v1-style (all off)",
+   "n_seeds": 5,
+   "acc_mean": 0.7716666666666666,
+   "acc_sd": 0.07036610610861517,
+   "f1_mean": 0.7673459971605519,
+   "f1_sd": 0.07068759323807472,
+   "params": 1803305,
+   "diff_vs_full_mean": -0.015000000000000013,
+   "wins_vs_full": 2,
+   "per_seed": [
+    0.725,
+    0.8666666666666667,
+    0.7916666666666666,
+    0.6833333333333333,
+    0.7916666666666666
+   ]
+  },
+  {
+   "variant": "Concatenation",
+   "n_seeds": 6,
+   "acc_mean": 0.775,
+   "acc_sd": 0.022973414586817033,
+   "f1_mean": 0.7705177546667522,
+   "f1_sd": 0.02379454117849547,
+   "params": 1722689,
+   "diff_vs_full_mean": -0.006944444444444438,
+   "wins_vs_full": 3,
+   "per_seed": [
+    0.75,
+    0.8083333333333333,
+    0.7916666666666666,
+    0.775,
+    0.775,
+    0.75
+   ]
+  },
+  {
+   "variant": "Element-wise sum",
+   "n_seeds": 6,
+   "acc_mean": 0.7958333333333334,
+   "acc_sd": 0.0336443820636439,
+   "f1_mean": 0.7941008156106966,
+   "f1_sd": 0.03282707678136695,
+   "params": 1689793,
+   "diff_vs_full_mean": 0.013888888888888876,
+   "wins_vs_full": 4,
+   "per_seed": [
+    0.75,
+    0.825,
+    0.8166666666666667,
+    0.8,
+    0.825,
+    0.7583333333333333
+   ]
+  },
+  {
+   "variant": "MRI only",
+   "n_seeds": 5,
+   "acc_mean": 0.6799999999999999,
+   "acc_sd": 0.04699290726623894,
+   "f1_mean": 0.660485288605559,
+   "f1_sd": 0.058923148548110406,
+   "params": 1689793,
+   "diff_vs_full_mean": -0.10666666666666666,
+   "wins_vs_full": 0,
+   "per_seed": [
+    0.7416666666666667,
+    0.7,
+    0.625,
+    0.6416666666666667,
+    0.6916666666666667
+   ]
+  },
+  {
+   "variant": "VEP only",
+   "n_seeds": 4,
+   "acc_mean": 0.6395833333333333,
+   "acc_sd": 0.043234395600759395,
+   "f1_mean": 0.6350133140918252,
+   "f1_sd": 0.04435781286879965,
+   "params": 1689793,
+   "diff_vs_full_mean": -0.14583333333333337,
+   "wins_vs_full": 0,
+   "per_seed": [
+    0.6083333333333333,
+    0.6083333333333333,
+    0.7,
+    0.6416666666666667
+   ]
+  }
+ ],
+ "synthetic_sweep": {
+  "vep_strengths": [
+   0.15,
+   0.3,
+   0.5,
+   1.0
+  ],
+  "methods": {
+   "MRI only": {
+    "mean": [
+     62.916666666666664,
+     64.99999999999999,
+     70.0,
+     62.916666666666664
+    ],
+    "sd": [
+     4.124789556921528,
+     5.892556509887899,
+     4.714045207910316,
+     1.7677669529663704
+    ],
+    "n": [
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   "VEP only": {
+    "mean": [
+     45.0,
+     64.16666666666666,
+     85.41666666666666,
+     96.66666666666666
+    ],
+    "sd": [
+     0.0,
+     1.1785113019775828,
+     0.5892556509887875,
+     2.357022603955158
+    ],
+    "n": [
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   "Concatenation": {
+    "mean": [
+     69.58333333333333,
+     77.49999999999999,
+     90.83333333333333,
+     98.33333333333333
+    ],
+    "sd": [
+     0.5892556509887875,
+     7.071067811865474,
+     1.178511301977575,
+     0.0
+    ],
+    "n": [
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   "CAFN (full)": {
+    "mean": [
+     67.5,
+     77.91666666666666,
+     89.99999999999999,
+     97.50000000000001
+    ],
+    "sd": [
+     7.071067811865474,
+     11.195857368787001,
+     2.357022603955158,
+     2.357022603955158
+    ],
+    "n": [
+     2,
+     2,
+     2,
+     2
+    ]
+   }
+  }
+ },
+ "real_cv": {
+  "info": {
+   "n": 95,
+   "cohorts": {
+    "ds003568": 47,
+    "ds007181": 48
+   },
+   "n_patient": 50
+  },
+  "models": [
+   {
+    "model": "Spectrum (500-pt) \u00b7 LogReg",
+    "auc_mean": 0.5633777777777778,
+    "auc_sd": 0.004571516753999565,
+    "bacc_mean": 0.59,
+    "bacc_sd": 0.0,
+    "auc_ci": [
+     0.4477878226424738,
+     0.678235328501286
+    ],
+    "bacc_ci": [
+     0.4944068139349277,
+     0.6844654255319148
+    ],
+    "perm_p": 0.024875621890547265,
+    "repeats": 5
+   },
+   {
+    "model": "Band powers (5) \u00b7 LogReg",
+    "auc_mean": 0.5665777777777776,
+    "auc_sd": 0.003405152232778343,
+    "bacc_mean": 0.59,
+    "bacc_sd": 0.0,
+    "auc_ci": [
+     0.45331427304964544,
+     0.6831603174603175
+    ],
+    "bacc_ci": [
+     0.4944068139349277,
+     0.6844654255319148
+    ],
+    "perm_p": 0.004975124378109453,
+    "repeats": 5
+   },
+   {
+    "model": "Band powers (5) \u00b7 Random forest",
+    "auc_mean": 0.5180888888888889,
+    "auc_sd": 0.038912881487741455,
+    "bacc_mean": 0.5386666666666666,
+    "bacc_sd": 0.028179319971817524,
+    "auc_ci": [
+     0.36140632798573974,
+     0.6021217532467532
+    ],
+    "bacc_ci": [
+     0.413327380952381,
+     0.6111953282695417
+    ],
+    "perm_p": 0.7263681592039801,
+    "repeats": 5
+   },
+   {
+    "model": "MRI (8\u00b3 \u2192 PCA-20) \u00b7 LogReg",
+    "auc_mean": 0.5868444444444444,
+    "auc_sd": 0.03013811826971794,
+    "bacc_mean": 0.5844444444444445,
+    "bacc_sd": 0.013028932666176204,
+    "auc_ci": [
+     0.43346176122931435,
+     0.672019060283688
+    ],
+    "bacc_ci": [
+     0.4927835804132974,
+     0.6954334762890663
+    ],
+    "perm_p": 0.23880597014925373,
+    "repeats": 5
+   },
+   {
+    "model": "MRI + band powers \u00b7 LogReg",
+    "auc_mean": 0.5877333333333332,
+    "auc_sd": 0.031590903519608055,
+    "bacc_mean": 0.5802222222222222,
+    "bacc_sd": 0.01381982830287654,
+    "auc_ci": [
+     0.432619621749409,
+     0.6737709542230819
+    ],
+    "bacc_ci": [
+     0.4927835804132974,
+     0.6954334762890663
+    ],
+    "perm_p": 0.23383084577114427,
+    "repeats": 5
+   },
+   {
+    "model": "CAFN (ours)",
+    "auc_mean": 0.5097777777777778,
+    "auc_sd": 0.0,
+    "bacc_mean": 0.5177777777777778,
+    "bacc_sd": 0.0,
+    "auc_ci": [
+     0.3970323529411765,
+     0.622731746031746
+    ],
+    "bacc_ci": [
+     0.42130808527157393,
+     0.6197637465051259
+    ],
+    "perm_p": null,
+    "repeats": 1
+   },
+   {
+    "model": "Concatenation fusion",
+    "auc_mean": 0.5333333333333333,
+    "auc_sd": 0.0,
+    "bacc_mean": 0.5533333333333333,
+    "bacc_sd": 0.0,
+    "auc_ci": [
+     0.42125046635990554,
+     0.6588942555710935
+    ],
+    "bacc_ci": [
+     0.45215609313898036,
+     0.6539634589013471
+    ],
+    "perm_p": null,
+    "repeats": 1
+   },
+   {
+    "model": "MRI only",
+    "auc_mean": 0.4786666666666666,
+    "auc_sd": 0.0,
+    "bacc_mean": 0.5033333333333334,
+    "bacc_sd": 0.0,
+    "auc_ci": [
+     0.3584905660377359,
+     0.6021211312379317
+    ],
+    "bacc_ci": [
+     0.40215563003857674,
+     0.6120371377938066
+    ],
+    "perm_p": null,
+    "repeats": 1
+   },
+   {
+    "model": "Spectrum only",
+    "auc_mean": 0.6177777777777778,
+    "auc_sd": 0.0,
+    "bacc_mean": 0.5611111111111111,
+    "bacc_sd": 0.0,
+    "auc_ci": [
+     0.49769856244384547,
+     0.7241048214027774
+    ],
+    "bacc_ci": [
+     0.46174320150893333,
+     0.6601073345259392
+    ],
+    "perm_p": null,
+    "repeats": 1
+   }
+  ]
+ },
+ "real_lodo_classical": {
+  "Spectrum (500-pt) \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.632183908045977,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.5714285714285714,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.5625
+   }
+  },
+  "Band powers (5) \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.5019157088122606,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.4779541446208113,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.5625
+   }
+  },
+  "Band powers (5) \u00b7 Random forest": {
+   "ds003568": {
+    "auc": 0.5,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.5,
+    "balanced_accuracy": 0.5,
+    "accuracy": 0.5625
+   }
+  },
+  "MRI (8\u00b3 \u2192 PCA-20) \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.40229885057471265,
+    "balanced_accuracy": 0.4281609195402299,
+    "accuracy": 0.48936170212765956
+   },
+   "ds007181": {
+    "auc": 0.4409171075837742,
+    "balanced_accuracy": 0.4656084656084656,
+    "accuracy": 0.4583333333333333
+   }
+  },
+  "MRI + band powers \u00b7 LogReg": {
+   "ds003568": {
+    "auc": 0.4137931034482758,
+    "balanced_accuracy": 0.4262452107279694,
+    "accuracy": 0.3829787234042553
+   },
+   "ds007181": {
+    "auc": 0.45855379188712525,
+    "balanced_accuracy": 0.5132275132275133,
+    "accuracy": 0.5
+   }
+  }
+ },
+ "cohort_cafn": {
+  "seed": 42,
+  "config": {
+   "batch_size": 8,
+   "epochs": 120,
+   "lr": 0.0005,
+   "weight_decay": 0.01,
+   "aux_loss_weight": 0.3,
+   "val_split": 0.2,
+   "seed": 42,
+   "checkpoint_dir": "results/cohorts",
+   "optimizer": "adamw",
+   "scheduler": "cosine",
+   "warmup_fraction": 0.1,
+   "warmup_epochs": null,
+   "max_grad_norm": 1.0,
+   "patience": 25,
+   "num_workers": 0,
+   "amp": true,
+   "balance_classes": true,
+   "class_weights": null,
+   "label_smoothing": 0.0,
+   "deterministic": true,
+   "select_metric": "val_balanced_accuracy",
+   "augment": true,
+   "device": null
+  },
+  "cohorts": [
+   "ds003568",
+   "ds007181"
+  ],
+  "n_subjects": 95,
+  "identity_probe": {
+   "accuracy": 1.0,
+   "chance": 0.5052631578947369,
+   "cohorts": [
+    "ds003568",
+    "ds007181"
+   ]
+  },
+  "repeats": {
+   "0": {
+    "splits": {
+     "ds003568": {
+      "train": 33,
+      "val": 7,
+      "test": 7
+     },
+     "ds007181": {
+      "train": 34,
+      "val": 7,
+      "test": 7
+     }
+    },
+    "pooled": {
+     "train_cohorts": [
+      "ds003568",
+      "ds007181"
+     ],
+     "epochs_run": 33,
+     "batch_size": 8,
+     "minutes": 1.44,
+     "splits": {
+      "val:ds003568": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.7142857142857143,
+        "balanced_accuracy": 0.6666666666666666,
+        "sensitivity": 1.0,
+        "specificity": 0.3333333333333333,
+        "auc": 0.4166666666666667,
+        "macro_f1": 0.65,
+        "confusion_matrix": [
+         [
+          1,
+          2
+         ],
+         [
+          0,
+          4
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.42857142857142855,
+          1.0
+         ],
+         "balanced_accuracy": [
+          0.5,
+          1.0
+         ],
+         "auc": [
+          0.0,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.7142857142857143,
+        "balanced_accuracy": 0.6666666666666666,
+        "sensitivity": 1.0,
+        "specificity": 0.3333333333333333,
+        "auc": 0.5833333333333334,
+        "macro_f1": 0.65,
+        "confusion_matrix": [
+         [
+          1,
+          2
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.5,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.41666666666666663,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       }
+      },
+      "test:ds003568": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.375,
+        "sensitivity": 0.75,
+        "specificity": 0.0,
+        "auc": 0.41666666666666663,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          1,
+          3
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.0,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.0,
+          0.5
+         ],
+         "auc": [
+          0.0,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.4166666666666667,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.4166666666666667,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.33333333333333337,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       }
+      },
+      "val:ds007181": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5416666666666666,
+        "sensitivity": 0.3333333333333333,
+        "specificity": 0.75,
+        "auc": 0.75,
+        "macro_f1": 0.5333333333333333,
+        "confusion_matrix": [
+         [
+          3,
+          1
+         ],
+         [
+          2,
+          1
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.14285714285714285,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.16666666666666666,
+          0.9166666666666667
+         ],
+         "auc": [
+          0.2,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5416666666666666,
+        "sensitivity": 0.3333333333333333,
+        "specificity": 0.75,
+        "auc": 0.6666666666666666,
+        "macro_f1": 0.5333333333333333,
+        "confusion_matrix": [
+         [
+          3,
+          1
+         ],
+         [
+          2,
+          1
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.625,
+        "sensitivity": 1.0,
+        "specificity": 0.25,
+        "auc": 0.6666666666666666,
+        "macro_f1": 0.5333333333333333,
+        "confusion_matrix": [
+         [
+          1,
+          3
+         ],
+         [
+          0,
+          3
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.3333333333333333,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       }
+      },
+      "test:ds007181": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5833333333333333,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.2821428571428573,
+          1.0
+         ],
+         "balanced_accuracy": [
+          0.5,
+          1.0
+         ],
+         "auc": [
+          0.0,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.7142857142857143,
+        "balanced_accuracy": 0.6666666666666666,
+        "sensitivity": 0.3333333333333333,
+        "specificity": 1.0,
+        "auc": 0.75,
+        "macro_f1": 0.65,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          2,
+          1
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.625,
+        "sensitivity": 1.0,
+        "specificity": 0.25,
+        "auc": 0.41666666666666663,
+        "macro_f1": 0.5333333333333333,
+        "confusion_matrix": [
+         [
+          1,
+          3
+         ],
+         [
+          0,
+          3
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5833333333333333,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       }
+      },
+      "val:ALL": {
+       "n": 14,
+       "fused": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.6428571428571429,
+        "balanced_accuracy": 0.6428571428571428,
+        "sensitivity": 0.7142857142857143,
+        "specificity": 0.5714285714285714,
+        "auc": 0.6122448979591837,
+        "macro_f1": 0.641025641025641,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          2,
+          5
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.35714285714285715,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.375,
+          0.8888888888888888
+         ],
+         "auc": [
+          0.2653061224489796,
+          0.9183673469387754
+         ]
+        }
+       },
+       "spatial": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.6428571428571429,
+        "balanced_accuracy": 0.6428571428571428,
+        "sensitivity": 0.7142857142857143,
+        "specificity": 0.5714285714285714,
+        "auc": 0.6122448979591837,
+        "macro_f1": 0.641025641025641,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          2,
+          5
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 1.0,
+        "specificity": 0.14285714285714285,
+        "auc": 0.5714285714285714,
+        "macro_f1": 0.475,
+        "confusion_matrix": [
+         [
+          1,
+          6
+         ],
+         [
+          0,
+          7
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 0.5714285714285714,
+        "specificity": 0.5714285714285714,
+        "auc": 0.5102040816326531,
+        "macro_f1": 0.5714285714285714,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          3,
+          4
+         ]
+        ]
+       }
+      },
+      "test:ALL": {
+       "n": 14,
+       "fused": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.42857142857142855,
+        "specificity": 0.5714285714285714,
+        "auc": 0.5714285714285714,
+        "macro_f1": 0.49743589743589745,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          4,
+          3
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.2857142857142857,
+          0.7857142857142857
+         ],
+         "balanced_accuracy": [
+          0.25,
+          0.7708333333333333
+         ],
+         "auc": [
+          0.25,
+          0.8958333333333334
+         ]
+        }
+       },
+       "spatial": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.6428571428571429,
+        "balanced_accuracy": 0.6428571428571428,
+        "sensitivity": 0.7142857142857143,
+        "specificity": 0.5714285714285714,
+        "auc": 0.6326530612244898,
+        "macro_f1": 0.641025641025641,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          2,
+          5
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 1.0,
+        "specificity": 0.14285714285714285,
+        "auc": 0.4693877551020408,
+        "macro_f1": 0.475,
+        "confusion_matrix": [
+         [
+          1,
+          6
+         ],
+         [
+          0,
+          7
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 0.5714285714285714,
+        "specificity": 0.5714285714285714,
+        "auc": 0.5510204081632653,
+        "macro_f1": 0.5714285714285714,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          3,
+          4
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "lodo_ds003568": {
+     "train_cohorts": [
+      "ds007181"
+     ],
+     "epochs_run": 41,
+     "batch_size": 8,
+     "minutes": 1.2,
+     "splits": {
+      "test:ds003568": {
+       "n": 47,
+       "fused": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.5106382978723404,
+        "balanced_accuracy": 0.42432950191570884,
+        "sensitivity": 0.7931034482758621,
+        "specificity": 0.05555555555555555,
+        "auc": 0.5689655172413793,
+        "macro_f1": 0.3733333333333333,
+        "confusion_matrix": [
+         [
+          1,
+          17
+         ],
+         [
+          6,
+          23
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.3617021276595745,
+          0.6382978723404256
+         ],
+         "balanced_accuracy": [
+          0.33818142641672055,
+          0.5177181136877828
+         ],
+         "auc": [
+          0.406554771856496,
+          0.7399436090225564
+         ]
+        }
+       },
+       "spatial": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.5957446808510638,
+        "balanced_accuracy": 0.5565134099616859,
+        "sensitivity": 0.7241379310344828,
+        "specificity": 0.3888888888888889,
+        "auc": 0.5383141762452107,
+        "macro_f1": 0.5563835072031793,
+        "confusion_matrix": [
+         [
+          7,
+          11
+         ],
+         [
+          8,
+          21
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.5957446808510638,
+        "balanced_accuracy": 0.4932950191570881,
+        "sensitivity": 0.9310344827586207,
+        "specificity": 0.05555555555555555,
+        "auc": 0.4885057471264368,
+        "macro_f1": 0.41748206131767773,
+        "confusion_matrix": [
+         [
+          1,
+          17
+         ],
+         [
+          2,
+          27
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.6170212765957447,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.6475095785440613,
+        "macro_f1": 0.3815789473684211,
+        "confusion_matrix": [
+         [
+          0,
+          18
+         ],
+         [
+          0,
+          29
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "lodo_ds007181": {
+     "train_cohorts": [
+      "ds003568"
+     ],
+     "epochs_run": 52,
+     "batch_size": 8,
+     "minutes": 1.57,
+     "splits": {
+      "test:ds007181": {
+       "n": 48,
+       "fused": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4375,
+        "balanced_accuracy": 0.43121693121693117,
+        "sensitivity": 0.38095238095238093,
+        "specificity": 0.48148148148148145,
+        "auc": 0.41269841269841273,
+        "macro_f1": 0.4313295304958315,
+        "confusion_matrix": [
+         [
+          13,
+          14
+         ],
+         [
+          13,
+          8
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.3125,
+          0.5833333333333334
+         ],
+         "balanced_accuracy": [
+          0.29682608325771326,
+          0.5777777777777777
+         ],
+         "auc": [
+          0.25174107142857144,
+          0.5820138888888888
+         ]
+        }
+       },
+       "spatial": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4791666666666667,
+        "balanced_accuracy": 0.45238095238095233,
+        "sensitivity": 0.23809523809523808,
+        "specificity": 0.6666666666666666,
+        "auc": 0.42680776014109345,
+        "macro_f1": 0.4379391100702576,
+        "confusion_matrix": [
+         [
+          18,
+          9
+         ],
+         [
+          16,
+          5
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4583333333333333,
+        "balanced_accuracy": 0.5132275132275133,
+        "sensitivity": 0.9523809523809523,
+        "specificity": 0.07407407407407407,
+        "auc": 0.3492063492063492,
+        "macro_f1": 0.3696969696969697,
+        "confusion_matrix": [
+         [
+          2,
+          25
+         ],
+         [
+          1,
+          20
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.6419753086419754,
+        "macro_f1": 0.36,
+        "confusion_matrix": [
+         [
+          27,
+          0
+         ],
+         [
+          21,
+          0
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "1": {
+    "splits": {
+     "ds003568": {
+      "train": 33,
+      "val": 7,
+      "test": 7
+     },
+     "ds007181": {
+      "train": 34,
+      "val": 7,
+      "test": 7
+     }
+    },
+    "pooled": {
+     "train_cohorts": [
+      "ds003568",
+      "ds007181"
+     ],
+     "epochs_run": 27,
+     "batch_size": 8,
+     "minutes": 1.62,
+     "splits": {
+      "val:ds003568": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 1.0,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.2821428571428573,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          1.0,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.08333333333333334,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          3,
+          0
+         ],
+         [
+          4,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 1.0,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.25,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       }
+      },
+      "test:ds003568": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.6666666666666667,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.14285714285714285,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          0.16666666666666666,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.4166666666666667,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          3,
+          0
+         ],
+         [
+          4,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.5,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 1.0,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       }
+      },
+      "val:ds007181": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.8333333333333334,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          0,
+          4
+         ],
+         [
+          0,
+          3
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.0,
+          0.7178571428571396
+         ],
+         "balanced_accuracy": [
+          0.0,
+          0.5
+         ],
+         "auc": [
+          0.33333333333333337,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.9166666666666666,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.5833333333333333,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          0,
+          4
+         ],
+         [
+          0,
+          3
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5833333333333334,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       }
+      },
+      "test:ds007181": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.3333333333333333,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          0,
+          4
+         ],
+         [
+          0,
+          3
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.0,
+          0.7178571428571396
+         ],
+         "balanced_accuracy": [
+          0.0,
+          0.5
+         ],
+         "auc": [
+          0.0,
+          0.9166666666666666
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.75,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.6666666666666666,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          0,
+          4
+         ],
+         [
+          0,
+          3
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5833333333333333,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       }
+      },
+      "val:ALL": {
+       "n": 14,
+       "fused": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.8979591836734695,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          0,
+          7
+         ],
+         [
+          0,
+          7
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.21428571428571427,
+          0.7857142857142857
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          0.625,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5714285714285715,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          7,
+          0
+         ],
+         [
+          7,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.7755102040816326,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          0,
+          7
+         ],
+         [
+          0,
+          7
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 0.5714285714285714,
+        "specificity": 0.5714285714285714,
+        "auc": 0.5306122448979592,
+        "macro_f1": 0.5714285714285714,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          3,
+          4
+         ]
+        ]
+       }
+      },
+      "test:ALL": {
+       "n": 14,
+       "fused": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.5510204081632654,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          0,
+          7
+         ],
+         [
+          0,
+          7
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.21428571428571427,
+          0.7142857142857143
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          0.22916666666666669,
+          0.8666666666666667
+         ]
+        }
+       },
+       "spatial": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.6326530612244898,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          7,
+          0
+         ],
+         [
+          7,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.6326530612244898,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          0,
+          7
+         ],
+         [
+          0,
+          7
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 0.5714285714285714,
+        "specificity": 0.5714285714285714,
+        "auc": 0.7142857142857143,
+        "macro_f1": 0.5714285714285714,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          3,
+          4
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "lodo_ds003568": {
+     "train_cohorts": [
+      "ds007181"
+     ],
+     "epochs_run": 28,
+     "batch_size": 8,
+     "minutes": 0.87,
+     "splits": {
+      "test:ds003568": {
+       "n": 47,
+       "fused": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.3829787234042553,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.6551724137931034,
+        "macro_f1": 0.27692307692307694,
+        "confusion_matrix": [
+         [
+          18,
+          0
+         ],
+         [
+          29,
+          0
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.2553191489361702,
+          0.5106382978723404
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          0.4937365667420815,
+          0.8125
+         ]
+        }
+       },
+       "spatial": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.3829787234042553,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.3333333333333333,
+        "macro_f1": 0.27692307692307694,
+        "confusion_matrix": [
+         [
+          18,
+          0
+         ],
+         [
+          29,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.6170212765957447,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.6053639846743295,
+        "macro_f1": 0.3815789473684211,
+        "confusion_matrix": [
+         [
+          0,
+          18
+         ],
+         [
+          0,
+          29
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.3829787234042553,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5747126436781609,
+        "macro_f1": 0.27692307692307694,
+        "confusion_matrix": [
+         [
+          18,
+          0
+         ],
+         [
+          29,
+          0
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "lodo_ds007181": {
+     "train_cohorts": [
+      "ds003568"
+     ],
+     "epochs_run": 33,
+     "batch_size": 8,
+     "minutes": 1.0,
+     "splits": {
+      "test:ds007181": {
+       "n": 48,
+       "fused": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4791666666666667,
+        "balanced_accuracy": 0.5264550264550265,
+        "sensitivity": 0.9047619047619048,
+        "specificity": 0.14814814814814814,
+        "auc": 0.4708994708994709,
+        "macro_f1": 0.4227994227994228,
+        "confusion_matrix": [
+         [
+          4,
+          23
+         ],
+         [
+          2,
+          19
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.3333333333333333,
+          0.625
+         ],
+         "balanced_accuracy": [
+          0.4357142857142857,
+          0.6136525974025974
+         ],
+         "auc": [
+          0.2982067464082407,
+          0.6463997584541061
+         ]
+        }
+       },
+       "spatial": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4583333333333333,
+        "balanced_accuracy": 0.5185185185185185,
+        "sensitivity": 1.0,
+        "specificity": 0.037037037037037035,
+        "auc": 0.4268077601410935,
+        "macro_f1": 0.3445378151260504,
+        "confusion_matrix": [
+         [
+          1,
+          26
+         ],
+         [
+          0,
+          21
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4583333333333333,
+        "balanced_accuracy": 0.5185185185185185,
+        "sensitivity": 1.0,
+        "specificity": 0.037037037037037035,
+        "auc": 0.5167548500881833,
+        "macro_f1": 0.3445378151260504,
+        "confusion_matrix": [
+         [
+          1,
+          26
+         ],
+         [
+          0,
+          21
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.4991181657848325,
+        "macro_f1": 0.36,
+        "confusion_matrix": [
+         [
+          27,
+          0
+         ],
+         [
+          21,
+          0
+         ]
+        ]
+       }
+      }
+     }
+    }
+   },
+   "2": {
+    "splits": {
+     "ds003568": {
+      "train": 33,
+      "val": 7,
+      "test": 7
+     },
+     "ds007181": {
+      "train": 34,
+      "val": 7,
+      "test": 7
+     }
+    },
+    "pooled": {
+     "train_cohorts": [
+      "ds003568",
+      "ds007181"
+     ],
+     "epochs_run": 29,
+     "batch_size": 8,
+     "minutes": 1.77,
+     "splits": {
+      "val:ds003568": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.8333333333333334,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.14285714285714285,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          0.3333333333333333,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.33333333333333337,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          3,
+          0
+         ],
+         [
+          4,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.7500000000000001,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          3,
+          0
+         ],
+         [
+          4,
+          0
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.41666666666666663,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       }
+      },
+      "test:ds003568": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.7500000000000001,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.14285714285714285,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          0.16666666666666666,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          3,
+          0
+         ],
+         [
+          4,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.42857142857142855,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.41666666666666663,
+        "macro_f1": 0.3,
+        "confusion_matrix": [
+         [
+          3,
+          0
+         ],
+         [
+          4,
+          0
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 4,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.5,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          0,
+          3
+         ],
+         [
+          0,
+          4
+         ]
+        ]
+       }
+      },
+      "val:ds007181": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.625,
+        "sensitivity": 1.0,
+        "specificity": 0.25,
+        "auc": 0.6666666666666666,
+        "macro_f1": 0.5333333333333333,
+        "confusion_matrix": [
+         [
+          1,
+          3
+         ],
+         [
+          0,
+          3
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.14285714285714285,
+          0.8571428571428571
+         ],
+         "balanced_accuracy": [
+          0.42857142857142855,
+          0.875
+         ],
+         "auc": [
+          0.16666666666666663,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.41666666666666663,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.8333333333333333,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       }
+      },
+      "test:ds007181": {
+       "n": 7,
+       "fused": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.625,
+        "sensitivity": 1.0,
+        "specificity": 0.25,
+        "auc": 0.6666666666666666,
+        "macro_f1": 0.5333333333333333,
+        "confusion_matrix": [
+         [
+          1,
+          3
+         ],
+         [
+          0,
+          3
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.14285714285714285,
+          0.8607142857142824
+         ],
+         "balanced_accuracy": [
+          0.42857142857142855,
+          0.9024999999999977
+         ],
+         "auc": [
+          0.16666666666666663,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5833333333333333,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 7,
+        "n_patient": 3,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.41666666666666663,
+        "macro_f1": 0.36363636363636365,
+        "confusion_matrix": [
+         [
+          4,
+          0
+         ],
+         [
+          3,
+          0
+         ]
+        ]
+       }
+      },
+      "val:ALL": {
+       "n": 14,
+       "fused": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 1.0,
+        "specificity": 0.14285714285714285,
+        "auc": 0.7142857142857142,
+        "macro_f1": 0.475,
+        "confusion_matrix": [
+         [
+          1,
+          6
+         ],
+         [
+          0,
+          7
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.2857142857142857,
+          0.7857142857142857
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.7142857142857143
+         ],
+         "auc": [
+          0.41625,
+          0.9583545918367347
+         ]
+        }
+       },
+       "spatial": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.3673469387755102,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          7,
+          0
+         ],
+         [
+          7,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.8163265306122449,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          7,
+          0
+         ],
+         [
+          7,
+          0
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 0.5714285714285714,
+        "specificity": 0.5714285714285714,
+        "auc": 0.5510204081632654,
+        "macro_f1": 0.5714285714285714,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          3,
+          4
+         ]
+        ]
+       }
+      },
+      "test:ALL": {
+       "n": 14,
+       "fused": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 1.0,
+        "specificity": 0.14285714285714285,
+        "auc": 0.7142857142857143,
+        "macro_f1": 0.475,
+        "confusion_matrix": [
+         [
+          1,
+          6
+         ],
+         [
+          0,
+          7
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.2857142857142857,
+          0.7857142857142857
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.7142857142857143
+         ],
+         "auc": [
+          0.4220833333333334,
+          1.0
+         ]
+        }
+       },
+       "spatial": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.6122448979591837,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          7,
+          0
+         ],
+         [
+          7,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.4897959183673469,
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": [
+         [
+          7,
+          0
+         ],
+         [
+          7,
+          0
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 14,
+        "n_patient": 7,
+        "accuracy": 0.5714285714285714,
+        "balanced_accuracy": 0.5714285714285714,
+        "sensitivity": 0.5714285714285714,
+        "specificity": 0.5714285714285714,
+        "auc": 0.5510204081632653,
+        "macro_f1": 0.5714285714285714,
+        "confusion_matrix": [
+         [
+          4,
+          3
+         ],
+         [
+          3,
+          4
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "lodo_ds003568": {
+     "train_cohorts": [
+      "ds007181"
+     ],
+     "epochs_run": 53,
+     "batch_size": 8,
+     "minutes": 1.64,
+     "splits": {
+      "test:ds003568": {
+       "n": 47,
+       "fused": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.5531914893617021,
+        "balanced_accuracy": 0.4482758620689655,
+        "sensitivity": 0.896551724137931,
+        "specificity": 0.0,
+        "auc": 0.4885057471264368,
+        "macro_f1": 0.3561643835616438,
+        "confusion_matrix": [
+         [
+          0,
+          18
+         ],
+         [
+          3,
+          26
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.40425531914893614,
+          0.7021276595744681
+         ],
+         "balanced_accuracy": [
+          0.37998275862068964,
+          0.5
+         ],
+         "auc": [
+          0.3249365942028986,
+          0.6623417207792208
+         ]
+        }
+       },
+       "spatial": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.574468085106383,
+        "balanced_accuracy": 0.46551724137931033,
+        "sensitivity": 0.9310344827586207,
+        "specificity": 0.0,
+        "auc": 0.3237547892720306,
+        "macro_f1": 0.36486486486486486,
+        "confusion_matrix": [
+         [
+          0,
+          18
+         ],
+         [
+          2,
+          27
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.5106382978723404,
+        "balanced_accuracy": 0.4664750957854406,
+        "sensitivity": 0.6551724137931034,
+        "specificity": 0.2777777777777778,
+        "auc": 0.4118773946360153,
+        "macro_f1": 0.4629905613512171,
+        "confusion_matrix": [
+         [
+          5,
+          13
+         ],
+         [
+          10,
+          19
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 47,
+        "n_patient": 29,
+        "accuracy": 0.6170212765957447,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.6187739463601533,
+        "macro_f1": 0.3815789473684211,
+        "confusion_matrix": [
+         [
+          0,
+          18
+         ],
+         [
+          0,
+          29
+         ]
+        ]
+       }
+      }
+     }
+    },
+    "lodo_ds007181": {
+     "train_cohorts": [
+      "ds003568"
+     ],
+     "epochs_run": 27,
+     "batch_size": 8,
+     "minutes": 0.82,
+     "splits": {
+      "test:ds007181": {
+       "n": 48,
+       "fused": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4375,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.4338624338624339,
+        "macro_f1": 0.30434782608695654,
+        "confusion_matrix": [
+         [
+          0,
+          27
+         ],
+         [
+          0,
+          21
+         ]
+        ],
+        "ci95": {
+         "accuracy": [
+          0.2916666666666667,
+          0.5833333333333334
+         ],
+         "balanced_accuracy": [
+          0.5,
+          0.5
+         ],
+         "auc": [
+          0.25908695652173913,
+          0.6092727868521879
+         ]
+        }
+       },
+       "spatial": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.4850088183421517,
+        "macro_f1": 0.36,
+        "confusion_matrix": [
+         [
+          27,
+          0
+         ],
+         [
+          21,
+          0
+         ]
+        ]
+       },
+       "temporal": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "auc": 0.5696649029982364,
+        "macro_f1": 0.36,
+        "confusion_matrix": [
+         [
+          27,
+          0
+         ],
+         [
+          21,
+          0
+         ]
+        ]
+       },
+       "spectrum_logreg": {
+        "n": 48,
+        "n_patient": 21,
+        "accuracy": 0.4375,
+        "balanced_accuracy": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "auc": 0.5731922398589065,
+        "macro_f1": 0.30434782608695654,
+        "confusion_matrix": [
+         [
+          0,
+          27
+         ],
+         [
+          0,
+          21
+         ]
+        ]
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "cohort_cafn_summary": {
+  "pooled|test:ALL": {
+   "accuracy": [
+    0.5238095238095238,
+    0.041239304942116105
+   ],
+   "balanced_accuracy": [
+    0.5238095238095238,
+    0.041239304942116105
+   ],
+   "auc": [
+    0.6122448979591838,
+    0.08895712129674845
+   ]
+  },
+  "pooled|test:ds003568": {
+   "accuracy": [
+    0.5238095238095238,
+    0.08247860988423225
+   ],
+   "balanced_accuracy": [
+    0.4583333333333333,
+    0.07216878364870323
+   ],
+   "auc": [
+    0.6111111111111112,
+    0.1734721666221778
+   ]
+  },
+  "pooled|test:ds007181": {
+   "accuracy": [
+    0.5238095238095238,
+    0.08247860988423225
+   ],
+   "balanced_accuracy": [
+    0.5416666666666666,
+    0.07216878364870323
+   ],
+   "auc": [
+    0.5277777777777777,
+    0.1734721666221777
+   ]
+  },
+  "lodo_ds003568|test:ds003568": {
+   "accuracy": [
+    0.48226950354609927,
+    0.08858153189217587
+   ],
+   "balanced_accuracy": [
+    0.4575351213282248,
+    0.038675657481209186
+   ],
+   "auc": [
+    0.5708812260536398,
+    0.08334984642837964
+   ]
+  },
+  "lodo_ds007181|test:ds007181": {
+   "accuracy": [
+    0.4513888888888889,
+    0.024056261216234418
+   ],
+   "balanced_accuracy": [
+    0.4858906525573192,
+    0.04916176319141576
+   ],
+   "auc": [
+    0.43915343915343913,
+    0.029459070702804315
+   ]
+  }
+ }
+}

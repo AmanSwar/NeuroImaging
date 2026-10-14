@@ -1,0 +1,476 @@
+model,subject_id,label,p
+Spectrum (500-pt) · LogReg,ds003568_sub-21111,0,0.6200194937810901
+Spectrum (500-pt) · LogReg,ds003568_sub-22694,0,0.6168471926496685
+Spectrum (500-pt) · LogReg,ds003568_sub-23490,1,0.60597249964264
+Spectrum (500-pt) · LogReg,ds003568_sub-23520,1,0.6058911054759015
+Spectrum (500-pt) · LogReg,ds003568_sub-23540,1,0.6054124431015274
+Spectrum (500-pt) · LogReg,ds003568_sub-23550,1,0.6013851515365618
+Spectrum (500-pt) · LogReg,ds003568_sub-23593,1,0.6194819077928398
+Spectrum (500-pt) · LogReg,ds003568_sub-23607,1,0.6205922185331115
+Spectrum (500-pt) · LogReg,ds003568_sub-23641,1,0.6178884523248394
+Spectrum (500-pt) · LogReg,ds003568_sub-23656,0,0.632403700396212
+Spectrum (500-pt) · LogReg,ds003568_sub-23672,1,0.6309761961080146
+Spectrum (500-pt) · LogReg,ds003568_sub-23693,0,0.6225955034276861
+Spectrum (500-pt) · LogReg,ds003568_sub-23732,1,0.6206807499217435
+Spectrum (500-pt) · LogReg,ds003568_sub-23757,1,0.6186634282201042
+Spectrum (500-pt) · LogReg,ds003568_sub-23777,1,0.623618562133408
+Spectrum (500-pt) · LogReg,ds003568_sub-23780,1,0.600644287241949
+Spectrum (500-pt) · LogReg,ds003568_sub-23809,1,0.6183042600066299
+Spectrum (500-pt) · LogReg,ds003568_sub-23911,0,0.613942095737345
+Spectrum (500-pt) · LogReg,ds003568_sub-23927,1,0.6029839156401194
+Spectrum (500-pt) · LogReg,ds003568_sub-23951,1,0.6297051307488049
+Spectrum (500-pt) · LogReg,ds003568_sub-24071,1,0.6296326243634286
+Spectrum (500-pt) · LogReg,ds003568_sub-24085,1,0.6294379122681842
+Spectrum (500-pt) · LogReg,ds003568_sub-24103,1,0.6224435961227639
+Spectrum (500-pt) · LogReg,ds003568_sub-24138,0,0.6017813073964324
+Spectrum (500-pt) · LogReg,ds003568_sub-24169,1,0.6302922103358021
+Spectrum (500-pt) · LogReg,ds003568_sub-24172,0,0.6053993462004862
+Spectrum (500-pt) · LogReg,ds003568_sub-24175,0,0.60917771973694
+Spectrum (500-pt) · LogReg,ds003568_sub-24185,0,0.6298490288650812
+Spectrum (500-pt) · LogReg,ds003568_sub-24199,0,0.6187993442712941
+Spectrum (500-pt) · LogReg,ds003568_sub-24201,0,0.6290619502758671
+Spectrum (500-pt) · LogReg,ds003568_sub-24208,0,0.6061905879112043
+Spectrum (500-pt) · LogReg,ds003568_sub-24213,0,0.6204543780493778
+Spectrum (500-pt) · LogReg,ds003568_sub-24216,0,0.6031390948108779
+Spectrum (500-pt) · LogReg,ds003568_sub-24225,1,0.6033463001181355
+Spectrum (500-pt) · LogReg,ds003568_sub-24227,1,0.6065447636807432
+Spectrum (500-pt) · LogReg,ds003568_sub-24229,1,0.6186534493535527
+Spectrum (500-pt) · LogReg,ds003568_sub-24232,1,0.6044980592932461
+Spectrum (500-pt) · LogReg,ds003568_sub-24235,0,0.6194647607644724
+Spectrum (500-pt) · LogReg,ds003568_sub-24238,0,0.6281038130592299
+Spectrum (500-pt) · LogReg,ds003568_sub-24252,1,0.6063645632348081
+Spectrum (500-pt) · LogReg,ds003568_sub-24259,1,0.6199733954218322
+Spectrum (500-pt) · LogReg,ds003568_sub-24263,0,0.5980788855279592
+Spectrum (500-pt) · LogReg,ds003568_sub-24267,0,0.6236092682362211
+Spectrum (500-pt) · LogReg,ds003568_sub-24281,1,0.6196911987074255
+Spectrum (500-pt) · LogReg,ds003568_sub-24286,1,0.6051442659567899
+Spectrum (500-pt) · LogReg,ds003568_sub-24287,1,0.6228479828661668
+Spectrum (500-pt) · LogReg,ds003568_sub-24295,1,0.6057342315550218
+Spectrum (500-pt) · LogReg,ds007181_sub-02,0,0.4231726813702563
+Spectrum (500-pt) · LogReg,ds007181_sub-04,0,0.4512054621913513
+Spectrum (500-pt) · LogReg,ds007181_sub-05,0,0.4375469248112912
+Spectrum (500-pt) · LogReg,ds007181_sub-06,0,0.4215026588350442
+Spectrum (500-pt) · LogReg,ds007181_sub-07,0,0.4401849346596315
+Spectrum (500-pt) · LogReg,ds007181_sub-08,0,0.42339700243352546
+Spectrum (500-pt) · LogReg,ds007181_sub-09,0,0.4363918026936017
+Spectrum (500-pt) · LogReg,ds007181_sub-10,0,0.449745585816047
+Spectrum (500-pt) · LogReg,ds007181_sub-11,0,0.44757986184328225
+Spectrum (500-pt) · LogReg,ds007181_sub-12,0,0.451028878265921
+Spectrum (500-pt) · LogReg,ds007181_sub-13,0,0.45117024452688254
+Spectrum (500-pt) · LogReg,ds007181_sub-14,0,0.4233828005892195
+Spectrum (500-pt) · LogReg,ds007181_sub-15,0,0.44098223105017315
+Spectrum (500-pt) · LogReg,ds007181_sub-16,0,0.4402094193957436
+Spectrum (500-pt) · LogReg,ds007181_sub-17,0,0.43977265813613015
+Spectrum (500-pt) · LogReg,ds007181_sub-18,0,0.4470737436620749
+Spectrum (500-pt) · LogReg,ds007181_sub-19,0,0.45147164318677735
+Spectrum (500-pt) · LogReg,ds007181_sub-20,0,0.4425245001341309
+Spectrum (500-pt) · LogReg,ds007181_sub-21,0,0.4499769177338215
+Spectrum (500-pt) · LogReg,ds007181_sub-22,0,0.4447565978623942
+Spectrum (500-pt) · LogReg,ds007181_sub-23,0,0.4400701120701215
+Spectrum (500-pt) · LogReg,ds007181_sub-24,0,0.44664238301837544
+Spectrum (500-pt) · LogReg,ds007181_sub-25,0,0.4363995823529276
+Spectrum (500-pt) · LogReg,ds007181_sub-26,0,0.44767247722420356
+Spectrum (500-pt) · LogReg,ds007181_sub-27,0,0.4489276994551711
+Spectrum (500-pt) · LogReg,ds007181_sub-28,0,0.4178887968372172
+Spectrum (500-pt) · LogReg,ds007181_sub-29,0,0.43524506516968053
+Spectrum (500-pt) · LogReg,ds007181_sub-35,1,0.43967514680773195
+Spectrum (500-pt) · LogReg,ds007181_sub-36,1,0.4359128855589919
+Spectrum (500-pt) · LogReg,ds007181_sub-37,1,0.4341060168090222
+Spectrum (500-pt) · LogReg,ds007181_sub-40,1,0.4186616126919437
+Spectrum (500-pt) · LogReg,ds007181_sub-41,1,0.450690225704638
+Spectrum (500-pt) · LogReg,ds007181_sub-42,1,0.4198122785790894
+Spectrum (500-pt) · LogReg,ds007181_sub-44,1,0.4495575391751299
+Spectrum (500-pt) · LogReg,ds007181_sub-45,1,0.41589738309141644
+Spectrum (500-pt) · LogReg,ds007181_sub-46,1,0.43939971278895035
+Spectrum (500-pt) · LogReg,ds007181_sub-47,1,0.4471695063538297
+Spectrum (500-pt) · LogReg,ds007181_sub-48,1,0.45349854403983947
+Spectrum (500-pt) · LogReg,ds007181_sub-49,1,0.4170893240908474
+Spectrum (500-pt) · LogReg,ds007181_sub-50,1,0.4366835986224413
+Spectrum (500-pt) · LogReg,ds007181_sub-51,1,0.4362239841608433
+Spectrum (500-pt) · LogReg,ds007181_sub-52,1,0.44952498129680857
+Spectrum (500-pt) · LogReg,ds007181_sub-53,1,0.448437021298068
+Spectrum (500-pt) · LogReg,ds007181_sub-54,1,0.4396228811514437
+Spectrum (500-pt) · LogReg,ds007181_sub-58,1,0.44618362313404053
+Spectrum (500-pt) · LogReg,ds007181_sub-59,1,0.43728291163601885
+Spectrum (500-pt) · LogReg,ds007181_sub-60,1,0.4518271688555104
+Spectrum (500-pt) · LogReg,ds007181_sub-61,1,0.4210380912764609
+Band powers (5) · LogReg,ds003568_sub-21111,0,0.6179220760907193
+Band powers (5) · LogReg,ds003568_sub-22694,0,0.6153829197993494
+Band powers (5) · LogReg,ds003568_sub-23490,1,0.6045908170711936
+Band powers (5) · LogReg,ds003568_sub-23520,1,0.6041449845708284
+Band powers (5) · LogReg,ds003568_sub-23540,1,0.6033338193823488
+Band powers (5) · LogReg,ds003568_sub-23550,1,0.6005887465249587
+Band powers (5) · LogReg,ds003568_sub-23593,1,0.6175488585013463
+Band powers (5) · LogReg,ds003568_sub-23607,1,0.6180946990004108
+Band powers (5) · LogReg,ds003568_sub-23641,1,0.6172462754383469
+Band powers (5) · LogReg,ds003568_sub-23656,0,0.6306401668476852
+Band powers (5) · LogReg,ds003568_sub-23672,1,0.6291926086034787
+Band powers (5) · LogReg,ds003568_sub-23693,0,0.6200520500181973
+Band powers (5) · LogReg,ds003568_sub-23732,1,0.6182008451581401
+Band powers (5) · LogReg,ds003568_sub-23757,1,0.6168037138279394
+Band powers (5) · LogReg,ds003568_sub-23777,1,0.6214833644361671
+Band powers (5) · LogReg,ds003568_sub-23780,1,0.6001255624926166
+Band powers (5) · LogReg,ds003568_sub-23809,1,0.6168084198583628
+Band powers (5) · LogReg,ds003568_sub-23911,0,0.6122765854069254
+Band powers (5) · LogReg,ds003568_sub-23927,1,0.6020509726597371
+Band powers (5) · LogReg,ds003568_sub-23951,1,0.6278697521176456
+Band powers (5) · LogReg,ds003568_sub-24071,1,0.6278793063500242
+Band powers (5) · LogReg,ds003568_sub-24085,1,0.6278042479188543
+Band powers (5) · LogReg,ds003568_sub-24103,1,0.6201036756677368
+Band powers (5) · LogReg,ds003568_sub-24138,0,0.6010984118085199
+Band powers (5) · LogReg,ds003568_sub-24169,1,0.6286436802943632
+Band powers (5) · LogReg,ds003568_sub-24172,0,0.6037494484562609
+Band powers (5) · LogReg,ds003568_sub-24175,0,0.6075267973019428
+Band powers (5) · LogReg,ds003568_sub-24185,0,0.6285051038457038
+Band powers (5) · LogReg,ds003568_sub-24199,0,0.6170138292531863
+Band powers (5) · LogReg,ds003568_sub-24201,0,0.6276467649369863
+Band powers (5) · LogReg,ds003568_sub-24208,0,0.6046523621347463
+Band powers (5) · LogReg,ds003568_sub-24213,0,0.6180137201304077
+Band powers (5) · LogReg,ds003568_sub-24216,0,0.6019436896693565
+Band powers (5) · LogReg,ds003568_sub-24225,1,0.6022806454816456
+Band powers (5) · LogReg,ds003568_sub-24227,1,0.6053171160350478
+Band powers (5) · LogReg,ds003568_sub-24229,1,0.6168406472107733
+Band powers (5) · LogReg,ds003568_sub-24232,1,0.6026965565554154
+Band powers (5) · LogReg,ds003568_sub-24235,0,0.6175188218848232
+Band powers (5) · LogReg,ds003568_sub-24238,0,0.6258147027602329
+Band powers (5) · LogReg,ds003568_sub-24252,1,0.6040627927490108
+Band powers (5) · LogReg,ds003568_sub-24259,1,0.6177989499039382
+Band powers (5) · LogReg,ds003568_sub-24263,0,0.5969266710711824
+Band powers (5) · LogReg,ds003568_sub-24267,0,0.6206165050840058
+Band powers (5) · LogReg,ds003568_sub-24281,1,0.6179307002788628
+Band powers (5) · LogReg,ds003568_sub-24286,1,0.6033595233821848
+Band powers (5) · LogReg,ds003568_sub-24287,1,0.6205112065454861
+Band powers (5) · LogReg,ds003568_sub-24295,1,0.6040735997184804
+Band powers (5) · LogReg,ds007181_sub-02,0,0.4245579087310282
+Band powers (5) · LogReg,ds007181_sub-04,0,0.45306576705509205
+Band powers (5) · LogReg,ds007181_sub-05,0,0.4391906214396197
+Band powers (5) · LogReg,ds007181_sub-06,0,0.4230858205631592
+Band powers (5) · LogReg,ds007181_sub-07,0,0.4415064532263209
+Band powers (5) · LogReg,ds007181_sub-08,0,0.42479689913831264
+Band powers (5) · LogReg,ds007181_sub-09,0,0.43843221975611313
+Band powers (5) · LogReg,ds007181_sub-10,0,0.4514948160752779
+Band powers (5) · LogReg,ds007181_sub-11,0,0.4487257863514324
+Band powers (5) · LogReg,ds007181_sub-12,0,0.45219951798165364
+Band powers (5) · LogReg,ds007181_sub-13,0,0.45260667987632586
+Band powers (5) · LogReg,ds007181_sub-14,0,0.42520887184730416
+Band powers (5) · LogReg,ds007181_sub-15,0,0.4425058207210856
+Band powers (5) · LogReg,ds007181_sub-16,0,0.4420385742201347
+Band powers (5) · LogReg,ds007181_sub-17,0,0.44238222350632106
+Band powers (5) · LogReg,ds007181_sub-18,0,0.4495509596419739
+Band powers (5) · LogReg,ds007181_sub-19,0,0.4522538166731321
+Band powers (5) · LogReg,ds007181_sub-20,0,0.44411375372929246
+Band powers (5) · LogReg,ds007181_sub-21,0,0.45136006250303196
+Band powers (5) · LogReg,ds007181_sub-22,0,0.44590126606898595
+Band powers (5) · LogReg,ds007181_sub-23,0,0.44172302006395625
+Band powers (5) · LogReg,ds007181_sub-24,0,0.44717999694923666
+Band powers (5) · LogReg,ds007181_sub-25,0,0.4377459572837269
+Band powers (5) · LogReg,ds007181_sub-26,0,0.4486119359312492
+Band powers (5) · LogReg,ds007181_sub-27,0,0.45070251655335375
+Band powers (5) · LogReg,ds007181_sub-28,0,0.4198136827138943
+Band powers (5) · LogReg,ds007181_sub-29,0,0.43692347473915216
+Band powers (5) · LogReg,ds007181_sub-35,1,0.4411148258243203
+Band powers (5) · LogReg,ds007181_sub-36,1,0.4373554870978396
+Band powers (5) · LogReg,ds007181_sub-37,1,0.4368665777977024
+Band powers (5) · LogReg,ds007181_sub-40,1,0.4205045906887531
+Band powers (5) · LogReg,ds007181_sub-41,1,0.4521166943891595
+Band powers (5) · LogReg,ds007181_sub-42,1,0.42166379957180933
+Band powers (5) · LogReg,ds007181_sub-44,1,0.4517536922889921
+Band powers (5) · LogReg,ds007181_sub-45,1,0.417752340675735
+Band powers (5) · LogReg,ds007181_sub-46,1,0.44158471293832313
+Band powers (5) · LogReg,ds007181_sub-47,1,0.44838988970365046
+Band powers (5) · LogReg,ds007181_sub-48,1,0.45535590278122406
+Band powers (5) · LogReg,ds007181_sub-49,1,0.4191722112125082
+Band powers (5) · LogReg,ds007181_sub-50,1,0.439948989241142
+Band powers (5) · LogReg,ds007181_sub-51,1,0.43882434743164733
+Band powers (5) · LogReg,ds007181_sub-52,1,0.451514409293688
+Band powers (5) · LogReg,ds007181_sub-53,1,0.4490248618600838
+Band powers (5) · LogReg,ds007181_sub-54,1,0.4412387844258516
+Band powers (5) · LogReg,ds007181_sub-58,1,0.4487340065350255
+Band powers (5) · LogReg,ds007181_sub-59,1,0.4387795464981178
+Band powers (5) · LogReg,ds007181_sub-60,1,0.4528949525073775
+Band powers (5) · LogReg,ds007181_sub-61,1,0.4230992539680648
+Band powers (5) · Random forest,ds003568_sub-21111,0,0.8025931994794963
+Band powers (5) · Random forest,ds003568_sub-22694,0,0.42413413238682834
+Band powers (5) · Random forest,ds003568_sub-23490,1,0.384397917646949
+Band powers (5) · Random forest,ds003568_sub-23520,1,0.5326525637207771
+Band powers (5) · Random forest,ds003568_sub-23540,1,0.46562138469645015
+Band powers (5) · Random forest,ds003568_sub-23550,1,0.6891826333171744
+Band powers (5) · Random forest,ds003568_sub-23593,1,0.5154901744406776
+Band powers (5) · Random forest,ds003568_sub-23607,1,0.6682879107752574
+Band powers (5) · Random forest,ds003568_sub-23641,1,0.5003683661499455
+Band powers (5) · Random forest,ds003568_sub-23656,0,0.6820201825501522
+Band powers (5) · Random forest,ds003568_sub-23672,1,0.6519178142288183
+Band powers (5) · Random forest,ds003568_sub-23693,0,0.6915833515457137
+Band powers (5) · Random forest,ds003568_sub-23732,1,0.5793730836433247
+Band powers (5) · Random forest,ds003568_sub-23757,1,0.6473832784595004
+Band powers (5) · Random forest,ds003568_sub-23777,1,0.7201840483601066
+Band powers (5) · Random forest,ds003568_sub-23780,1,0.6419039703135114
+Band powers (5) · Random forest,ds003568_sub-23809,1,0.6960314717038907
+Band powers (5) · Random forest,ds003568_sub-23911,0,0.3528620567373468
+Band powers (5) · Random forest,ds003568_sub-23927,1,0.7322744544493464
+Band powers (5) · Random forest,ds003568_sub-23951,1,0.6119881845154413
+Band powers (5) · Random forest,ds003568_sub-24071,1,0.4412488118633139
+Band powers (5) · Random forest,ds003568_sub-24085,1,0.5090434968106117
+Band powers (5) · Random forest,ds003568_sub-24103,1,0.6521590605589228
+Band powers (5) · Random forest,ds003568_sub-24138,0,0.7288649538192573
+Band powers (5) · Random forest,ds003568_sub-24169,1,0.4765821093581756
+Band powers (5) · Random forest,ds003568_sub-24172,0,0.7035006964787966
+Band powers (5) · Random forest,ds003568_sub-24175,0,0.6179676005658952
+Band powers (5) · Random forest,ds003568_sub-24185,0,0.7412362070584793
+Band powers (5) · Random forest,ds003568_sub-24199,0,0.7298915812686286
+Band powers (5) · Random forest,ds003568_sub-24201,0,0.4999072194308812
+Band powers (5) · Random forest,ds003568_sub-24208,0,0.7979836586306377
+Band powers (5) · Random forest,ds003568_sub-24213,0,0.6654534307908646
+Band powers (5) · Random forest,ds003568_sub-24216,0,0.7350686169264354
+Band powers (5) · Random forest,ds003568_sub-24225,1,0.6397616574934105
+Band powers (5) · Random forest,ds003568_sub-24227,1,0.68321587806812
+Band powers (5) · Random forest,ds003568_sub-24229,1,0.7745622226978227
+Band powers (5) · Random forest,ds003568_sub-24232,1,0.41299807820901024
+Band powers (5) · Random forest,ds003568_sub-24235,0,0.5704062857134551
+Band powers (5) · Random forest,ds003568_sub-24238,0,0.6251032737949074
+Band powers (5) · Random forest,ds003568_sub-24252,1,0.6214810739904639
+Band powers (5) · Random forest,ds003568_sub-24259,1,0.8276112531514687
+Band powers (5) · Random forest,ds003568_sub-24263,0,0.35399478070288093
+Band powers (5) · Random forest,ds003568_sub-24267,0,0.6863494781788257
+Band powers (5) · Random forest,ds003568_sub-24281,1,0.5334139306264205
+Band powers (5) · Random forest,ds003568_sub-24286,1,0.44751976807882543
+Band powers (5) · Random forest,ds003568_sub-24287,1,0.6927959423272515
+Band powers (5) · Random forest,ds003568_sub-24295,1,0.5220253941342692
+Band powers (5) · Random forest,ds007181_sub-02,0,0.4012412240649419
+Band powers (5) · Random forest,ds007181_sub-04,0,0.29645541175071605
+Band powers (5) · Random forest,ds007181_sub-05,0,0.2958293945224117
+Band powers (5) · Random forest,ds007181_sub-06,0,0.5591093483809083
+Band powers (5) · Random forest,ds007181_sub-07,0,0.31635914205006666
+Band powers (5) · Random forest,ds007181_sub-08,0,0.37655135249535815
+Band powers (5) · Random forest,ds007181_sub-09,0,0.5080739834547565
+Band powers (5) · Random forest,ds007181_sub-10,0,0.5247881515298569
+Band powers (5) · Random forest,ds007181_sub-11,0,0.6304832317979691
+Band powers (5) · Random forest,ds007181_sub-12,0,0.600129103104533
+Band powers (5) · Random forest,ds007181_sub-13,0,0.317772442749677
+Band powers (5) · Random forest,ds007181_sub-14,0,0.34811498444255184
+Band powers (5) · Random forest,ds007181_sub-15,0,0.35200377272488415
+Band powers (5) · Random forest,ds007181_sub-16,0,0.33228930787874716
+Band powers (5) · Random forest,ds007181_sub-17,0,0.2627108152188124
+Band powers (5) · Random forest,ds007181_sub-18,0,0.7537315836767463
+Band powers (5) · Random forest,ds007181_sub-19,0,0.4791611654857934
+Band powers (5) · Random forest,ds007181_sub-20,0,0.30428400989049775
+Band powers (5) · Random forest,ds007181_sub-21,0,0.5452421264646289
+Band powers (5) · Random forest,ds007181_sub-22,0,0.705940740955478
+Band powers (5) · Random forest,ds007181_sub-23,0,0.2843960276005839
+Band powers (5) · Random forest,ds007181_sub-24,0,0.705940740955478
+Band powers (5) · Random forest,ds007181_sub-25,0,0.5961324836904254
+Band powers (5) · Random forest,ds007181_sub-26,0,0.6810788517553535
+Band powers (5) · Random forest,ds007181_sub-27,0,0.6394143189522239
+Band powers (5) · Random forest,ds007181_sub-28,0,0.340488058540465
+Band powers (5) · Random forest,ds007181_sub-29,0,0.5942245473808716
+Band powers (5) · Random forest,ds007181_sub-35,1,0.3623567029988239
+Band powers (5) · Random forest,ds007181_sub-36,1,0.6616225334134885
+Band powers (5) · Random forest,ds007181_sub-37,1,0.4480111827877433
+Band powers (5) · Random forest,ds007181_sub-40,1,0.4864175701662303
+Band powers (5) · Random forest,ds007181_sub-41,1,0.3612946670438933
+Band powers (5) · Random forest,ds007181_sub-42,1,0.5013735506283614
+Band powers (5) · Random forest,ds007181_sub-44,1,0.5144664942941283
+Band powers (5) · Random forest,ds007181_sub-45,1,0.2855056998382787
+Band powers (5) · Random forest,ds007181_sub-46,1,0.23846201642677137
+Band powers (5) · Random forest,ds007181_sub-47,1,0.6455395088542459
+Band powers (5) · Random forest,ds007181_sub-48,1,0.23777876486818691
+Band powers (5) · Random forest,ds007181_sub-49,1,0.403362338662309
+Band powers (5) · Random forest,ds007181_sub-50,1,0.41683862817971634
+Band powers (5) · Random forest,ds007181_sub-51,1,0.5259197119063201
+Band powers (5) · Random forest,ds007181_sub-52,1,0.3308028307056516
+Band powers (5) · Random forest,ds007181_sub-53,1,0.6554018514452414
+Band powers (5) · Random forest,ds007181_sub-54,1,0.3537430239957026
+Band powers (5) · Random forest,ds007181_sub-58,1,0.6129459474526934
+Band powers (5) · Random forest,ds007181_sub-59,1,0.30127017838744513
+Band powers (5) · Random forest,ds007181_sub-60,1,0.3156625592403687
+Band powers (5) · Random forest,ds007181_sub-61,1,0.5833648479634131
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-21111,0,0.8833346962928772
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-22694,0,0.9616830348968506
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23490,1,0.8891453742980957
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23520,1,0.5575504302978516
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23540,1,0.7823166251182556
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23550,1,0.42424455285072327
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23593,1,0.8795962333679199
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23607,1,0.8430987000465393
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23641,1,0.9035753011703491
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23656,0,0.7484744787216187
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23672,1,0.6041756272315979
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23693,0,0.8604276776313782
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23732,1,0.9399754405021667
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23757,1,0.964660108089447
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23777,1,0.8652061820030212
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23780,1,0.41451385617256165
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23809,1,0.3361090123653412
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23911,0,0.32030609250068665
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23927,1,0.1998491883277893
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-23951,1,0.7169708013534546
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24071,1,0.7477216124534607
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24085,1,0.8469429016113281
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24103,1,0.8913428783416748
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24138,0,0.3865743577480316
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24169,1,0.9369104504585266
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24172,0,0.2720453143119812
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24175,0,0.4903233051300049
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24185,0,0.8088323473930359
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24199,0,0.5809378623962402
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24201,0,0.22930128872394562
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24208,0,0.5518363118171692
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24213,0,0.25252583622932434
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24216,0,0.3442988991737366
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24225,1,0.8682278990745544
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24227,1,0.30632704496383667
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24229,1,0.4198976755142212
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24232,1,0.8720725774765015
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24235,0,0.6371713876724243
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24238,0,0.30432748794555664
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24252,1,0.2946593761444092
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24259,1,0.2677597999572754
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24263,0,0.6877634525299072
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24267,0,0.41848471760749817
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24281,1,0.7794435024261475
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24286,1,0.8834164142608643
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24287,1,0.7431747317314148
+MRI (8³ → PCA-20) · LogReg,ds003568_sub-24295,1,0.7715724110603333
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-02,0,0.4149618446826935
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-04,0,0.9778580665588379
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-05,0,0.2965971529483795
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-06,0,0.2958407402038574
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-07,0,0.7926104068756104
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-08,0,0.45505017042160034
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-09,0,0.9738885760307312
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-10,0,0.9999980926513672
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-11,0,0.9288298487663269
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-12,0,0.46379539370536804
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-13,0,0.16092391312122345
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-14,0,0.30326998233795166
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-15,0,0.4351861774921417
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-16,0,0.1340552717447281
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-17,0,0.041190002113580704
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-18,0,0.06273451447486877
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-19,0,0.48178693652153015
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-20,0,0.4268382489681244
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-21,0,0.18584688007831573
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-22,0,0.4619219899177551
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-23,0,0.7393891215324402
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-24,0,0.6161558628082275
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-25,0,0.681948721408844
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-26,0,1.0
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-27,0,0.9212729930877686
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-28,0,0.9387291669845581
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-29,0,0.180389866232872
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-35,1,0.6915871500968933
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-36,1,0.513242781162262
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-37,1,0.9288938641548157
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-40,1,0.9530224800109863
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-41,1,0.5836488008499146
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-42,1,0.3391227424144745
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-44,1,0.08980418741703033
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-45,1,0.6209037899971008
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-46,1,0.28510233759880066
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-47,1,0.6928440928459167
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-48,1,0.31948161125183105
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-49,1,0.021218381822109222
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-50,1,0.15558385848999023
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-51,1,0.44963538646698
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-52,1,0.5663390755653381
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-53,1,0.6189519166946411
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-54,1,0.6465781331062317
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-58,1,0.12695953249931335
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-59,1,0.3385474383831024
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-60,1,0.602947473526001
+MRI (8³ → PCA-20) · LogReg,ds007181_sub-61,1,0.12767335772514343
+MRI + band powers · LogReg,ds003568_sub-21111,0,0.884794922010028
+MRI + band powers · LogReg,ds003568_sub-22694,0,0.962785347752475
+MRI + band powers · LogReg,ds003568_sub-23490,1,0.8915068160041703
+MRI + band powers · LogReg,ds003568_sub-23520,1,0.5588903593991678
+MRI + band powers · LogReg,ds003568_sub-23540,1,0.7854475993601518
+MRI + band powers · LogReg,ds003568_sub-23550,1,0.42575044870284423
+MRI + band powers · LogReg,ds003568_sub-23593,1,0.8804757549356127
+MRI + band powers · LogReg,ds003568_sub-23607,1,0.8455292263597868
+MRI + band powers · LogReg,ds003568_sub-23641,1,0.9068454102843602
+MRI + band powers · LogReg,ds003568_sub-23656,0,0.7479732702734454
+MRI + band powers · LogReg,ds003568_sub-23672,1,0.6051184075818048
+MRI + band powers · LogReg,ds003568_sub-23693,0,0.8616090522161288
+MRI + band powers · LogReg,ds003568_sub-23732,1,0.942444648366932
+MRI + band powers · LogReg,ds003568_sub-23757,1,0.9654330929588596
+MRI + band powers · LogReg,ds003568_sub-23777,1,0.864689251017128
+MRI + band powers · LogReg,ds003568_sub-23780,1,0.41660154864902754
+MRI + band powers · LogReg,ds003568_sub-23809,1,0.3414111718902201
+MRI + band powers · LogReg,ds003568_sub-23911,0,0.32856395523742904
+MRI + band powers · LogReg,ds003568_sub-23927,1,0.20038234584651085
+MRI + band powers · LogReg,ds003568_sub-23951,1,0.7221849646936174
+MRI + band powers · LogReg,ds003568_sub-24071,1,0.7502467940427068
+MRI + band powers · LogReg,ds003568_sub-24085,1,0.8474118949773084
+MRI + band powers · LogReg,ds003568_sub-24103,1,0.8947741785963259
+MRI + band powers · LogReg,ds003568_sub-24138,0,0.3892858391078972
+MRI + band powers · LogReg,ds003568_sub-24169,1,0.9369406672339555
+MRI + band powers · LogReg,ds003568_sub-24172,0,0.27460238850612223
+MRI + band powers · LogReg,ds003568_sub-24175,0,0.49246243193421957
+MRI + band powers · LogReg,ds003568_sub-24185,0,0.8090711737212971
+MRI + band powers · LogReg,ds003568_sub-24199,0,0.5850096648883006
+MRI + band powers · LogReg,ds003568_sub-24201,0,0.2299496409342348
+MRI + band powers · LogReg,ds003568_sub-24208,0,0.5517190140313283
+MRI + band powers · LogReg,ds003568_sub-24213,0,0.2489685361582367
+MRI + band powers · LogReg,ds003568_sub-24216,0,0.34560861297924317
+MRI + band powers · LogReg,ds003568_sub-24225,1,0.870686714832929
+MRI + band powers · LogReg,ds003568_sub-24227,1,0.31267056658497183
+MRI + band powers · LogReg,ds003568_sub-24229,1,0.4260629311212978
+MRI + band powers · LogReg,ds003568_sub-24232,1,0.8749628944500832
+MRI + band powers · LogReg,ds003568_sub-24235,0,0.6391318100490643
+MRI + band powers · LogReg,ds003568_sub-24238,0,0.3048051776826867
+MRI + band powers · LogReg,ds003568_sub-24252,1,0.2950080218334305
+MRI + band powers · LogReg,ds003568_sub-24259,1,0.26566070550065524
+MRI + band powers · LogReg,ds003568_sub-24263,0,0.6888258098419682
+MRI + band powers · LogReg,ds003568_sub-24267,0,0.4138269392226074
+MRI + band powers · LogReg,ds003568_sub-24281,1,0.7769545149645007
+MRI + band powers · LogReg,ds003568_sub-24286,1,0.8825168362803835
+MRI + band powers · LogReg,ds003568_sub-24287,1,0.7468440712712417
+MRI + band powers · LogReg,ds003568_sub-24295,1,0.7726102094757459
+MRI + band powers · LogReg,ds007181_sub-02,0,0.41657533307464606
+MRI + band powers · LogReg,ds007181_sub-04,0,0.9778448332408505
+MRI + band powers · LogReg,ds007181_sub-05,0,0.29524236501782486
+MRI + band powers · LogReg,ds007181_sub-06,0,0.29158537328296885
+MRI + band powers · LogReg,ds007181_sub-07,0,0.793495373640119
+MRI + band powers · LogReg,ds007181_sub-08,0,0.4579300090782805
+MRI + band powers · LogReg,ds007181_sub-09,0,0.9726875739340295
+MRI + band powers · LogReg,ds007181_sub-10,0,0.999998212539357
+MRI + band powers · LogReg,ds007181_sub-11,0,0.9290348664933952
+MRI + band powers · LogReg,ds007181_sub-12,0,0.4753311738261814
+MRI + band powers · LogReg,ds007181_sub-13,0,0.16189696547532445
+MRI + band powers · LogReg,ds007181_sub-14,0,0.30049563449378347
+MRI + band powers · LogReg,ds007181_sub-15,0,0.431283005601159
+MRI + band powers · LogReg,ds007181_sub-16,0,0.13391905632615927
+MRI + band powers · LogReg,ds007181_sub-17,0,0.04248207456551248
+MRI + band powers · LogReg,ds007181_sub-18,0,0.06292125353739175
+MRI + band powers · LogReg,ds007181_sub-19,0,0.4818417158453851
+MRI + band powers · LogReg,ds007181_sub-20,0,0.42095343430491833
+MRI + band powers · LogReg,ds007181_sub-21,0,0.18617624501420096
+MRI + band powers · LogReg,ds007181_sub-22,0,0.4586068591456838
+MRI + band powers · LogReg,ds007181_sub-23,0,0.7348013472127471
+MRI + band powers · LogReg,ds007181_sub-24,0,0.6132099525803818
+MRI + band powers · LogReg,ds007181_sub-25,0,0.6755363441826192
+MRI + band powers · LogReg,ds007181_sub-26,0,0.9999999935049062
+MRI + band powers · LogReg,ds007181_sub-27,0,0.920790871827116
+MRI + band powers · LogReg,ds007181_sub-28,0,0.9394128157514929
+MRI + band powers · LogReg,ds007181_sub-29,0,0.18017286764268542
+MRI + band powers · LogReg,ds007181_sub-35,1,0.6888305556979791
+MRI + band powers · LogReg,ds007181_sub-36,1,0.5064392941292192
+MRI + band powers · LogReg,ds007181_sub-37,1,0.9273905596576286
+MRI + band powers · LogReg,ds007181_sub-40,1,0.9515294231755751
+MRI + band powers · LogReg,ds007181_sub-41,1,0.5764694285236889
+MRI + band powers · LogReg,ds007181_sub-42,1,0.3322001931557141
+MRI + band powers · LogReg,ds007181_sub-44,1,0.0897550880296276
+MRI + band powers · LogReg,ds007181_sub-45,1,0.6179463146788816
+MRI + band powers · LogReg,ds007181_sub-46,1,0.2840449072449028
+MRI + band powers · LogReg,ds007181_sub-47,1,0.6910955602276235
+MRI + band powers · LogReg,ds007181_sub-48,1,0.3198194761362087
+MRI + band powers · LogReg,ds007181_sub-49,1,0.02108395907305827
+MRI + band powers · LogReg,ds007181_sub-50,1,0.1540857564914479
+MRI + band powers · LogReg,ds007181_sub-51,1,0.4481576676397865
+MRI + band powers · LogReg,ds007181_sub-52,1,0.5652493937882972
+MRI + band powers · LogReg,ds007181_sub-53,1,0.6173755353764351
+MRI + band powers · LogReg,ds007181_sub-54,1,0.6422843625782949
+MRI + band powers · LogReg,ds007181_sub-58,1,0.12641070658111883
+MRI + band powers · LogReg,ds007181_sub-59,1,0.3376347554998787
+MRI + band powers · LogReg,ds007181_sub-60,1,0.6036809402704276
+MRI + band powers · LogReg,ds007181_sub-61,1,0.12768544497638323

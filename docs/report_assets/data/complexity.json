@@ -1,0 +1,30 @@
+{
+ "params": {
+  "Stem conv": 464,
+  "Residual block 1 (16\u219232, stride 2)": 42176,
+  "Residual block 2 (32\u219264, stride 2)": 168320,
+  "Residual block 3 (64\u2192128, stride 2)": 672512,
+  "Temporal encoder (4 \u00d7 Conv1d+BN)": 37968,
+  "Cross-attention (W_Q, W_K, W_V, W_O)": 66048,
+  "Feed-forward block (128\u2192256\u2192128)": 65920,
+  "LayerNorm \u00d72": 512,
+  "Classification heads \u00d73": 1161
+ },
+ "macs": {
+  "Stem conv": 113246208,
+  "Residual block 1 (16\u219232, stride 2)": 1375731712,
+  "Residual block 2 (32\u219264, stride 2)": 687865856,
+  "Residual block 3 (64\u2192128, stride 2)": 343932928,
+  "Temporal encoder (4 \u00d7 Conv1d+BN)": 3524288,
+  "Cross-attention (W_Q, W_K, W_V, W_O)": 2883584,
+  "Feed-forward block (128\u2192256\u2192128)": 4194304,
+  "Classification heads \u00d73": 1152
+ },
+ "total_params": 1055081,
+ "total_macs": 2531380032,
+ "spatial_encoder_params": 883472,
+ "temporal_encoder_params": 37968,
+ "fusion_params": 132480,
+ "head_params": 1161,
+ "attn_scores_per_sample": 4096
+}

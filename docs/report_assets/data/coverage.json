@@ -1,0 +1,216 @@
+{
+ "src/config.py": {
+  "stmts": 38,
+  "hit": 38,
+  "miss": [],
+  "extra": [
+   1,
+   14,
+   22,
+   32,
+   44,
+   56
+  ]
+ },
+ "src/data/dataset.py": {
+  "stmts": 43,
+  "hit": 43,
+  "miss": [],
+  "extra": [
+   1,
+   24,
+   45,
+   46,
+   47,
+   48,
+   53,
+   58,
+   59,
+   60,
+   84,
+   85,
+   86,
+   87
+  ]
+ },
+ "src/data/synthetic.py": {
+  "stmts": 62,
+  "hit": 62,
+  "miss": [],
+  "extra": [
+   1,
+   74,
+   75,
+   76,
+   110,
+   111,
+   112,
+   113,
+   114,
+   115
+  ]
+ },
+ "src/explainability/grad_cam_3d.py": {
+  "stmts": 70,
+  "hit": 69,
+  "miss": [
+   70
+  ],
+  "extra": [
+   1,
+   58,
+   113,
+   114,
+   115
+  ]
+ },
+ "src/explainability/plot_attention.py": {
+  "stmts": 22,
+  "hit": 22,
+  "miss": [],
+  "extra": [
+   1,
+   21
+  ]
+ },
+ "src/models/cafn.py": {
+  "stmts": 31,
+  "hit": 31,
+  "miss": [],
+  "extra": [
+   1,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   57,
+   58,
+   59,
+   60
+  ]
+ },
+ "src/models/cross_attention.py": {
+  "stmts": 45,
+  "hit": 45,
+  "miss": [],
+  "extra": [
+   1,
+   19,
+   56,
+   63,
+   64,
+   65,
+   66
+  ]
+ },
+ "src/models/spatial_encoder.py": {
+  "stmts": 37,
+  "hit": 37,
+  "miss": [],
+  "extra": [
+   1,
+   21,
+   22,
+   33,
+   42,
+   43,
+   44
+  ]
+ },
+ "src/models/temporal_encoder.py": {
+  "stmts": 14,
+  "hit": 14,
+  "miss": [],
+  "extra": [
+   1,
+   10,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26
+  ]
+ },
+ "src/preprocessing/mri_transforms.py": {
+  "stmts": 42,
+  "hit": 41,
+  "miss": [
+   32
+  ],
+  "extra": [
+   1,
+   64,
+   65,
+   75
+  ]
+ },
+ "src/preprocessing/signal_cleaner.py": {
+  "stmts": 51,
+  "hit": 49,
+  "miss": [
+   21,
+   38
+  ],
+  "extra": [
+   1,
+   41,
+   42,
+   53,
+   54,
+   70,
+   96,
+   104
+  ]
+ },
+ "src/train.py": {
+  "stmts": 93,
+  "hit": 70,
+  "miss": [
+   28,
+   47,
+   100,
+   106,
+   124,
+   125,
+   126,
+   127,
+   128,
+   129,
+   130,
+   131,
+   133,
+   135,
+   148,
+   149,
+   151,
+   152,
+   154,
+   155,
+   156,
+   157,
+   161
+  ],
+  "extra": [
+   1,
+   32,
+   54,
+   55,
+   56,
+   57,
+   65,
+   66,
+   67,
+   71
+  ]
+ }
+}

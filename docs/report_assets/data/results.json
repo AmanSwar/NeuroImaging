@@ -1,0 +1,182 @@
+{
+ "vep": {
+  "n_trials_per_class": 50,
+  "fs": 250.0,
+  "samples": 500,
+  "per_class": {
+   "0": {
+    "true_ms": 100.0,
+    "raw_mean": 101.84,
+    "raw_sd": 2.2922478051031043,
+    "zp_mean": 100.64,
+    "zp_sd": 1.8521339044464362,
+    "causal_mean": 101.12,
+    "causal_sd": 1.795995545651492,
+    "zp_err": 0.64,
+    "causal_err": 1.12,
+    "zp_maxabs": 4.0,
+    "causal_maxabs": 4.0,
+    "raw_maxabs": 8.0,
+    "zp_within4": 1.0,
+    "causal_within4": 1.0,
+    "peak_z_mean": 8.378773384094238,
+    "peak_z_sd": 0.26594063845098115,
+    "d50_mean": -20.525691409485212,
+    "a50_before": 0.1518099656843939,
+    "a50_after": 0.014379334431155792,
+    "a47_after": 0.02047807625728791
+   },
+   "1": {
+    "true_ms": 108.0,
+    "raw_mean": 107.44,
+    "raw_sd": 2.6545056036859296,
+    "zp_mean": 108.0,
+    "zp_sd": 2.8844410203711917,
+    "causal_mean": 108.24,
+    "causal_sd": 2.3200000000000003,
+    "zp_err": 0.0,
+    "causal_err": 0.24,
+    "zp_maxabs": 8.0,
+    "causal_maxabs": 8.0,
+    "raw_maxabs": 8.0,
+    "zp_within4": 0.98,
+    "causal_within4": 0.98,
+    "peak_z_mean": 6.853423118591309,
+    "peak_z_sd": 0.4139103224155071,
+    "d50_mean": -21.215726543638294,
+    "a50_before": 0.15099500121571166,
+    "a50_after": 0.013352500011582136,
+    "a47_after": 0.021804337361858262
+   },
+   "2": {
+    "true_ms": 140.0,
+    "raw_mean": 141.28,
+    "raw_sd": 2.457966639317955,
+    "zp_mean": 140.8,
+    "zp_sd": 2.116601048851672,
+    "causal_mean": 141.04,
+    "causal_sd": 2.749254444390333,
+    "zp_err": 0.8,
+    "causal_err": 1.04,
+    "zp_maxabs": 4.0,
+    "causal_maxabs": 4.0,
+    "raw_maxabs": 8.0,
+    "zp_within4": 1.0,
+    "causal_within4": 1.0,
+    "peak_z_mean": 7.514071216583252,
+    "peak_z_sd": 0.541003263520383,
+    "d50_mean": -24.34315461443434,
+    "a50_before": 0.15410617183564623,
+    "a50_after": 0.009658992876320804,
+    "a47_after": 0.02121717216553991
+   }
+  },
+  "all_d50_mean": -22.028190855852614,
+  "all_a50_before": 0.15230371291191724,
+  "all_a50_after": 0.012463609106352908,
+  "all_a47_after": 0.021166528594895363
+ },
+ "freq_response_db": {
+  "0.3": {
+   "bandpass": -82.73382925976578,
+   "notch": -4.6959566609921114e-07,
+   "combined": -82.73382972936145
+  },
+  "1.0": {
+   "bandpass": -5.776945358360296,
+   "notch": -5.117297395507047e-06,
+   "combined": -5.776950475657691
+  },
+  "10.0": {
+   "bandpass": -1.2239195989983297e-09,
+   "notch": -0.0005411680485702161,
+   "combined": -0.0005411692724898151
+  },
+  "49.0": {
+   "bandpass": -3.675398293372221e-05,
+   "notch": -4.522358837833609,
+   "combined": -4.522395591816543
+  },
+  "50.0": {
+   "bandpass": -4.7127068834298367e-05,
+   "notch": -97.45362007926741,
+   "combined": -97.45366720633625
+  },
+  "51.0": {
+   "bandpass": -5.9967745858007575e-05,
+   "notch": -4.64580513660149,
+   "combined": -4.645865104347348
+  },
+  "100.0": {
+   "bandpass": -6.029747271184678,
+   "notch": -0.0010527036497024662,
+   "combined": -6.03079997483438
+  }
+ },
+ "notch_minus6dB_band_hz": [
+  49.17907714843751,
+  50.8270263671875
+ ],
+ "group_delay_ms": {
+  "1": 593.0699907347378,
+  "2": 120.7230455290006,
+  "5": 18.82177668723952,
+  "10": 6.074575316289284,
+  "20": 3.075157651016691,
+  "30": 2.836586157353725,
+  "40": 3.883587437746616,
+  "60": 4.832495497219563
+ },
+ "mri": {
+  "raw_shape": [
+   80,
+   96,
+   64
+  ],
+  "per_class": {
+   "0": {
+    "mean_background": 100.02873229980469,
+    "mean_atrophy_roi": 99.93965148925781,
+    "mean_lesion_roi": 99.99793243408203,
+    "fraction_zeroed_by_mask": 0.6,
+    "retained_atrophy_roi": 0.39723307291666665,
+    "retained_lesion_roi": 0.40008138020833334,
+    "retained_background": 0.40044759114583334
+   },
+   "1": {
+    "mean_background": 100.01433563232422,
+    "mean_atrophy_roi": 39.99992370605469,
+    "mean_lesion_roi": 100.03345489501953,
+    "fraction_zeroed_by_mask": 0.6,
+    "retained_atrophy_roi": 0.0,
+    "retained_lesion_roi": 0.456640625,
+    "retained_background": 0.4572265625
+   },
+   "2": {
+    "mean_background": 100.04112243652344,
+    "mean_atrophy_roi": 100.05207061767578,
+    "mean_lesion_roi": 179.94113159179688,
+    "fraction_zeroed_by_mask": 0.6,
+    "retained_atrophy_roi": 0.317333984375,
+    "retained_lesion_roi": 0.9968587239583333,
+    "retained_background": 0.31430121527777777
+   }
+  }
+ },
+ "token_time": {
+  "tokens": 16,
+  "nominal_bin_ms": 125.0,
+  "p100_token_idx": {
+   "Healthy": 0,
+   "Glaucoma": 0,
+   "Optic neuritis / CVI": 1
+  }
+ },
+ "config": {
+  "classes": [
+   "Healthy Control",
+   "Glaucoma",
+   "Optic Neuritis / CVI"
+  ]
+ }
+}
