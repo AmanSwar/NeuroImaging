@@ -1,0 +1,144 @@
+{
+ "modules": [
+  "ablation_synthetic",
+  "cohort_experiments",
+  "config",
+  "cv_real",
+  "data.augment",
+  "data.cohorts",
+  "data.dataset",
+  "data.splits",
+  "data.synthetic",
+  "evaluation",
+  "explainability.grad_cam_3d",
+  "explainability.p100",
+  "explainability.plot_attention",
+  "models.attention_pool",
+  "models.cafn",
+  "models.cross_attention",
+  "models.losses",
+  "models.pooling",
+  "models.positional",
+  "models.spatial_encoder",
+  "models.temporal_encoder",
+  "predict",
+  "preprocessing.mri_transforms",
+  "preprocessing.signal_cleaner",
+  "train",
+  "utils"
+ ],
+ "new_since_v1": [
+  "ablation_synthetic",
+  "cohort_experiments",
+  "cv_real",
+  "data.augment",
+  "data.cohorts",
+  "data.splits",
+  "evaluation",
+  "explainability.p100",
+  "models.attention_pool",
+  "models.losses",
+  "models.pooling",
+  "models.positional",
+  "predict",
+  "utils"
+ ],
+ "imports": {
+  "ablation_synthetic": [
+   "config",
+   "data.dataset",
+   "models.cafn",
+   "train",
+   "utils"
+  ],
+  "cohort_experiments": [
+   "config",
+   "data.cohorts",
+   "data.dataset",
+   "models.cafn",
+   "train",
+   "utils"
+  ],
+  "config": [],
+  "cv_real": [
+   "config",
+   "models.cafn",
+   "train",
+   "utils"
+  ],
+  "data.augment": [],
+  "data.cohorts": [
+   "config",
+   "preprocessing.mri_transforms"
+  ],
+  "data.dataset": [
+   "config",
+   "data.augment",
+   "data.synthetic",
+   "preprocessing.mri_transforms",
+   "preprocessing.signal_cleaner"
+  ],
+  "data.splits": [
+   "config"
+  ],
+  "data.synthetic": [
+   "config"
+  ],
+  "evaluation": [
+   "config"
+  ],
+  "explainability.grad_cam_3d": [],
+  "explainability.p100": [],
+  "explainability.plot_attention": [],
+  "models.attention_pool": [],
+  "models.cafn": [
+   "config",
+   "models.attention_pool",
+   "models.cross_attention",
+   "models.losses",
+   "models.positional",
+   "models.spatial_encoder",
+   "models.temporal_encoder"
+  ],
+  "models.cross_attention": [
+   "config"
+  ],
+  "models.losses": [],
+  "models.pooling": [],
+  "models.positional": [
+   "config"
+  ],
+  "models.spatial_encoder": [
+   "config",
+   "models.pooling"
+  ],
+  "models.temporal_encoder": [
+   "config",
+   "models.pooling"
+  ],
+  "predict": [
+   "config",
+   "explainability.grad_cam_3d",
+   "explainability.plot_attention",
+   "models.cafn",
+   "preprocessing.mri_transforms",
+   "preprocessing.signal_cleaner",
+   "train"
+  ],
+  "preprocessing.mri_transforms": [
+   "config"
+  ],
+  "preprocessing.signal_cleaner": [
+   "config"
+  ],
+  "train": [
+   "config",
+   "data.dataset",
+   "data.splits",
+   "evaluation",
+   "models.cafn",
+   "utils"
+  ],
+  "utils": []
+ }
+}

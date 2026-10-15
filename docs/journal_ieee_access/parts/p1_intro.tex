@@ -28,7 +28,7 @@ Surveys distinguish early, intermediate and late fusion \cite{baltrusaitis2019,r
 \caption{Published cross-attention fusion studies versus this work. Numbers are those reported by the authors on \emph{their} data; they are \textbf{not} comparable with ours (different tasks, modalities and data).}
 \label{tab:lit}
 \centering\footnotesize
-\begin{tabular}{@{}p{0.13\textwidth}p{0.16\textwidth}p{0.22\textwidth}p{0.14\textwidth}p{0.27\textwidth}@{}}
+\begin{tabular}{@{}p{0.13\textwidth}p{0.15\textwidth}p{0.21\textwidth}p{0.14\textwidth}p{0.26\textwidth}@{}}
 \toprule
 Study & Modalities & Data (size) & Task & Reported result\\
 \midrule
@@ -93,7 +93,7 @@ A seeded generator produces class-conditioned MRI volumes (an ellipsoidal brain 
 
 \section{Experimental Setup}\label{sec:setup}
 \subsection{Implementation and reproducibility}
-CAFN is implemented in PyTorch \cite{paszke2019} with MONAI \cite{cardoso2022}, NiBabel, MNE-Python \cite{gramfort2013}, SciPy \cite{virtanen2020} and scikit-learn. All randomness derives from one constant seed (42; repeat $k$ uses $42{+}k$), deterministic algorithms are requested, and a single script (\texttt{run\_all.sh}) performs download, preprocessing, training, validation and testing and records the environment. Neural models were trained on an NVIDIA RTX 3050 Laptop GPU (4\,GB) with mixed precision; the model needs under 1\,GB at batch size 8. To finish in time, some synthetic runs were distributed over an Apple M3 Max (CPU or MPS) and the host CPU; every run is reproducible on its own device at a fixed seed, but results are not bit-identical across devices, but all configurations of a given seed ran on the same device, so the paired comparisons between configurations are not affected.
+CAFN is implemented in PyTorch \cite{paszke2019} with MONAI \cite{cardoso2022}, NiBabel, MNE-Python \cite{gramfort2013}, SciPy \cite{virtanen2020} and scikit-learn. All randomness derives from one constant seed (42; repeat $k$ uses $42{+}k$), deterministic algorithms are requested, and a single script (\texttt{run\_all.sh}) performs download, preprocessing, training, validation and testing and records the environment. Neural models were trained on an NVIDIA RTX 3050 Laptop GPU (4\,GB) with mixed precision; the model needs under 1\,GB at batch size 8. To finish in time, some synthetic runs were distributed over an Apple M3 Max (CPU or MPS) and the host CPU; every run is reproducible on its own device at a fixed seed, but results are not bit-identical across devices; all configurations of a given seed ran on the same device, so the paired comparisons between configurations are not affected.
 
 \subsection{Study A: controlled synthetic benchmark}
 Each (setting, seed) draws 144 training, 48 validation and 120 test samples (test drawn from a different seed range), $32^3$ MRI volumes and 500-point VEPs; checkpoints are selected on validation balanced accuracy and \emph{all} reported numbers are on the test set. The main setting ($\mu_{\mathrm{MRI}}=1.0$, $\mu_{\mathrm{VEP}}=0.3$) was fixed from a pilot that trained only the two unimodal models and chose the difficulty at which both were clearly above chance and below saturation; it was not tuned on CAFN. Twelve configurations (Table~\ref{tab:ablation}) are run on at least five seeds (more for the five key comparisons). A sweep varies $\mu_{\mathrm{VEP}}$ (MRI fixed) for four methods.

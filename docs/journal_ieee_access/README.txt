@@ -24,4 +24,5 @@ IMPORTANT
   generated from those files by docs/build_p2b.py so text and data cannot drift apart.
 - Results are from a controlled SYNTHETIC benchmark and from two public real cohorts (depression/MEG, zoster neuralgia/EEG),
   not from glaucoma or optic-neuritis patients. No diagnostic accuracy is claimed.
-- References were written from known publication details - spot-check volume/page/DOI before submission.
+- References were checked against Crossref, DataCite and publisher pages on 15 Oct 2026 (Dhar et al. author order, pages and DOI corrected; dataset entries now carry year, version and DOI).
+  CAMF (Zhou et al.) also has a 2026 journal version (NeuroImage: Reports 6(2), 100338, doi 10.1016/j.ynirp.2026.100338) with different numbers; the arXiv version is cited here.
